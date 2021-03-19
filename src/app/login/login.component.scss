@@ -1,0 +1,23 @@
+.la-img {
+    width: 80%;
+    position: relative;
+    left: 9%;
+}
+.page {
+    --background: linear-gradient(204deg, #edf5f3, #dfeeebf3, #a2e2d9f3, #a0ebdef5) !important;
+}
+.time-box {
+    background: green;
+    width: 58%;
+    height: 34px;
+    position: relative;
+    box-shadow: 0px 2px 2px 2px grey;
+    left: 16%;
+    margin-top: 5%;
+    border-radius: 25px;
+}
+.tm-txt{
+    color: #edf5f3;
+    margin: 3.6%;
+    text-align: center;
+}
