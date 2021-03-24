@@ -5,16 +5,25 @@
     zoom: 2;
     float: right;
 }
+.user-img {
+    zoom: 5;
+}
 .pro-circle {
-    height: 70px;
-    width: 70px;
+    height: 79px;
+    width: 79px;
     display: flex;
-    margin: 2% 0 0 2%;
+    margin: 1% 0 0 6%;
     border-radius: 50%;
     background: cadetblue;
 }
 .txt {
     margin: 3%;
+}
+.cn-block {
+    margin: -3% 0 -3% 0;
+}
+.footer-icon {
+    color: black;
 }
 .line {
     width: 100%;
@@ -26,14 +35,19 @@
 }
 .scn {
     display: flex;
+    width: 83%;
+    margin-left: 13%;
     align-items: center;
+    margin-top: -5%;
 }
 .scn-icn {
     zoom: 2;
+    margin: 3%;
 }
 .vrt-line {
     width: 1px;
     height: 44px;
+    opacity: 0.7;
     margin-right: 10px;
     margin-top: 7px;
     border: 1px solid darkgray;
