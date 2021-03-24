@@ -4,12 +4,18 @@ import { AccountComponent } from './account/account.component';
 import { LoginComponent } from './login/login.component';
 
 const routes: Routes = [
-  // {
-  //   path: 'account',
-  //   loadChildren: () => import('./account/account.module').then(m => m.accountPageModule)
-  // },
-  { path: 'login', component: LoginComponent },
-  { path: 'account', component: AccountComponent },
+  {
+    path: 'login',
+    loadChildren: () => import('./login/login.module').then(m => m.loginPageModule)
+  },
+  {
+    path: 'welcome',
+    loadChildren: () => import('./welcome/welcome.module').then(m => m.WelcomePageModule)
+  },
+  {
+    path: 'account',
+    loadChildren: () => import('./account/account.module').then(m => m.accountPageModule)
+  },
   {
     path: 'home',
     loadChildren: () => import('./home/home.module').then(m => m.HomePageModule)

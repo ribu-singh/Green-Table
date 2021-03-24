@@ -2,15 +2,15 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
-import { AccountComponent } from './account.component';
 import { RouterModule, Routes } from '@angular/router';
+import { LoginComponent } from './login.component';
 
 
 
 const routes: Routes = [
   {
     path: '',
-    component: AccountComponent
+    component: LoginComponent
   }
 ];
 
@@ -21,8 +21,8 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  exports: [AccountComponent],
+  exports: [LoginComponent],
 
-  declarations: [AccountComponent]
+  declarations: [LoginComponent]
 })
-export class accountPageModule { }
+export class loginPageModule { }

@@ -1,43 +1,46 @@
-.Ag-img{
+.Ag-img {
     width: 100% !important;
 }
 .page {
     --background: linear-gradient(204deg, #f8f8f8, #eef8f6f3, #bfe0b9f3, #c4f0e8f5) !important;
 }
-.txt{
+.txt {
     font-weight: bold !important;
     font-size: 10px;
 }
 
-.card{
+.card {
     margin-top: 18% !important;
 }
 
-.card1{
+.card1 {
     margin-top: 8% !important;
 }
 
-.text{
+.text {
     font-size: 12px !important;
     position: relative;
     right: 5px;
     font-weight: bold;
 }
 
-.avatar{
+.avatar {
     font-weight: bold !important;
     font-size: 15px;
 }
 
-.flex-button{
+.flex-button {
     font-size: 17px;
     margin: 4px;
     color: #86888f;
     display: flex;
     justify-content: space-between !important;
 }
+.footer-icon {
+    color: black;
+}
 
-.flx{
+.flx {
     display: flex;
     justify-content: space-between !important;
 }
