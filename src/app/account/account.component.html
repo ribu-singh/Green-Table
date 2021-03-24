@@ -1,0 +1,74 @@
+<ion-content>
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <div (click)="back()">
+        <ion-icon name="arrow-back-outline" class="back-icon"></ion-icon>
+        <ion-icon name="menu-outline" class="menu-icon"></ion-icon>
+      </div>
+    </ion-toolbar>
+  </ion-header>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="3">
+        <div class="pro-circle">
+        </div>
+      </ion-col>
+      <ion-col size="9">
+        <div>
+          <p class="txt"><b>Ribu Singh</b></p>
+          <p class="txt">ribu.singh@gritsa.com</p>
+          <div class="head-txt">
+            <img class="grn-coins" src="../../assets/images/green-coin.png">
+            <p class="txt-cn">50 Coins earned</p>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+    <div><img src="../../assets/images/park.jpg"></div>
+    <ion-row>
+      <div class="line"></div>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <div class="scn">
+          <ion-icon name="scan" class="scn-icn"></ion-icon> &nbsp;
+          <p> Scan QR Code</p>
+        </div>
+      </ion-col>
+      <div class="vrt-line"></div>
+      <ion-col>
+        <div class="scn">
+          <ion-icon name="cloud-upload" class="scn-icn"></ion-icon> &nbsp;
+          <p> Upload QR Code</p>
+        </div>
+      </ion-col>
+    </ion-row>
+    <div><img src="../../assets/images/coin.jpg"></div>
+    <ion-row>
+      <div class="line-2">
+        <p class="trans-text">Transaction History</p>
+      </div>
+      <div>
+        <p><b>Februrary 2021</b></p>
+      </div>
+    </ion-row>
+    <ion-row *ngFor="let coin of coinData">
+      <ion-col size="9">
+        <div class="coin-blk">
+          <div class="coin-content">
+            <img class="grn-coin" src="../../assets/images/green-coin.png">
+          </div>
+          <div>
+            <p class="coin-text">coins added in green wallet</p>
+            <p class="coin-time">{{coin.time}}</p>
+          </div>
+        </div>
+      </ion-col>
+      <ion-col size="3">
+        <div>
+          <p class="crd-coin-txt">+{{coin.coinCredited}}</p>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
