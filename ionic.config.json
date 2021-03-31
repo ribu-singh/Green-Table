@@ -1,5 +1,7 @@
 {
   "name": "GreenTable",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }
