@@ -8,13 +8,14 @@
 .user-img {
     zoom: 5;
 }
+.profile {
+    height: 79px !important;
+    width: 79px !important;
+}
 .pro-circle {
-    height: 79px;
-    width: 79px;
     display: flex;
     margin: 1% 0 0 6%;
     border-radius: 50%;
-    background: cadetblue;
 }
 .txt {
     margin: 3%;

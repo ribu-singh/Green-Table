@@ -13,14 +13,15 @@
         <!-- <div class="pro-circle">
           <ion-icon name="person-circle-outline" class="user-img"></ion-icon>
         </div> -->
-        <ion-avatar>
-          <ion-icon name="person-circle-outline" class="user-img"></ion-icon>
+        <ion-avatar class="profile">
+          <!-- <ion-icon name="person-circle-outline" class="user-img"></ion-icon> -->
+          <img class="pro-circle" src="{{profilePic}}">
         </ion-avatar>
       </ion-col>
       <ion-col size="9">
         <div>
-          <p class="txt"><b>Ribu Singh</b></p>
-          <p class="txt">ribu.singh@gritsa.com</p>
+          <p class="txt"><b>{{userName}}</b></p>
+          <p class="txt">{{email}}</p>
           <div class="head-txt">
             <img class="grn-coins" src="../../assets/images/green-coin.png">
             <p class="txt-cn">50 Credits earned</p>

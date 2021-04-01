@@ -5,6 +5,7 @@ import { Router, Routes } from '@angular/router';
 import { GooglePlus } from '@ionic-native/google-plus/ngx';
 import { LoadingController, Platform } from '@ionic/angular';
 import firebase from 'firebase/app';
+import * as appGlobals from '../app.globals';
 
 
 @Component({
@@ -59,6 +60,12 @@ export class LoginComponent implements OnInit {
       this.fireAuth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(success => {
         console.log('success in google login', success);
         this.isGoogleLogin = true;
+        if (success && success.user) {
+          localStorage.setItem(appGlobals.localStorageKeys.userProfile, JSON.stringify(success.user.uid));
+          localStorage.setItem(appGlobals.localStorageKeys.userName, JSON.stringify(success.user.displayName));
+          localStorage.setItem(appGlobals.localStorageKeys.email, JSON.stringify(success.user.email));
+          localStorage.setItem(appGlobals.localStorageKeys.profilePic, JSON.stringify(success.user.photoURL));
+        }
         this.user = success.user;
         this.router.navigate(['welcome']);
       }).catch(err => {
