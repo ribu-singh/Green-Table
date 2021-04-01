@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy, Routes } from '@angular/router';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { TokenInterceptor } from './interceptors/http.interceptor';
+import { TokenInterceptorService } from './interceptors/token-http-interceptor.service';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 
 import { AppComponent } from './app.component';
@@ -26,7 +26,7 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
     provide: RouteReuseStrategy, useClass: IonicRouteStrategy,
   }, {
     provide: HTTP_INTERCEPTORS,
-    useClass: TokenInterceptor,
+    useClass: TokenInterceptorService,
     multi: true
   }, GooglePlus],
   bootstrap: [AppComponent],
