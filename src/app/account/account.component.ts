@@ -9,9 +9,9 @@ import { NavController } from '@ionic/angular';
 export class AccountComponent implements OnInit {
 
   public coinData = [];
-  public userName: any;
-  public email: any;
-  public profilePic: any;
+  public userDetails: any;
+  // public email: any;
+  // public profilePic: any;
 
   constructor(private navControl: NavController) {
     this.coinData = [{ time: '18-Feb 5:15 PM', coinCredited: '20' },
@@ -23,12 +23,12 @@ export class AccountComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.userName = localStorage.getItem('userName');
-    this.userName = this.userName ? JSON.parse(this.userName) : undefined;
-    this.email = localStorage.getItem('email');
-    this.email = this.email ? JSON.parse(this.email) : undefined;
-    this.profilePic = localStorage.getItem('profilePic');
-    this.profilePic = this.profilePic ? JSON.parse(this.profilePic) : undefined;
+    this.userDetails = localStorage.getItem('userDetails');
+    this.userDetails = this.userDetails ? JSON.parse(this.userDetails) : undefined;
+    // this.email = localStorage.getItem('email');
+    // this.email = this.email ? JSON.parse(this.email) : undefined;
+    // this.profilePic = localStorage.getItem('profilePic');
+    // this.profilePic = this.profilePic ? JSON.parse(this.profilePic) : undefined;
   }
 
 

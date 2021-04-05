@@ -62,10 +62,16 @@ export class LoginComponent implements OnInit {
         console.log('success in google login', success);
         this.isGoogleLogin = true;
         if (success && success.user) {
+          const details =
+          {
+            nickname: success.user.displayName,
+            email: success.user.email,
+            photo: success.user.photoURL,
+          }
           // localStorage.setItem(appGlobals.localStorageKeys.userProfile, JSON.stringify(success.user.uid));
-          localStorage.setItem(appGlobals.localStorageKeys.userName, JSON.stringify(success.user.displayName));
-          localStorage.setItem(appGlobals.localStorageKeys.email, JSON.stringify(success.user.email));
-          localStorage.setItem(appGlobals.localStorageKeys.profilePic, JSON.stringify(success.user.photoURL));
+          localStorage.setItem(appGlobals.localStorageKeys.userDetails, JSON.stringify(details));
+          // localStorage.setItem(appGlobals.localStorageKeys.email, JSON.stringify(success.user.email));
+          // localStorage.setItem(appGlobals.localStorageKeys.profilePic, JSON.stringify(success.user.photoURL));
         }
         this.user = success.user;
         this.router.navigate(['welcome']);

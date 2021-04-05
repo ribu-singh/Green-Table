@@ -1,8 +1,5 @@
 export const localStorageKeys = {
-    userProfile: 'userProfile',
-    userName:'userName',
-    email:'email',
-    profilePic:'profilePic',
+    userDetails: 'userDetails',
 };
 // export const utils = {
 //     trimText: (text: string, charlength: number) => {
