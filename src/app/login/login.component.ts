@@ -6,6 +6,7 @@ import { GooglePlus } from '@ionic-native/google-plus/ngx';
 import { LoadingController, Platform } from '@ionic/angular';
 import firebase from 'firebase/app';
 import * as appGlobals from '../app.globals';
+import { createEndpoint } from '../helpers/helper';
 
 
 @Component({
@@ -61,7 +62,7 @@ export class LoginComponent implements OnInit {
         console.log('success in google login', success);
         this.isGoogleLogin = true;
         if (success && success.user) {
-          localStorage.setItem(appGlobals.localStorageKeys.userProfile, JSON.stringify(success.user.uid));
+          // localStorage.setItem(appGlobals.localStorageKeys.userProfile, JSON.stringify(success.user.uid));
           localStorage.setItem(appGlobals.localStorageKeys.userName, JSON.stringify(success.user.displayName));
           localStorage.setItem(appGlobals.localStorageKeys.email, JSON.stringify(success.user.email));
           localStorage.setItem(appGlobals.localStorageKeys.profilePic, JSON.stringify(success.user.photoURL));
@@ -89,6 +90,25 @@ export class LoginComponent implements OnInit {
       });
 
   }
+
+  getData() {
+    const p = new Promise((resolve, reject) => {
+      const sendurl = (`${createEndpoint('jobcard/reject')}`);
+      const data = {
+        name: this.user.displayName,
+        email: this.user.email,
+        meta: JSON.stringify(this.user),
+      };
+      // this.http.post(sendurl, data).subscribe((done) => {
+      //   resolve(done);
+      // }, (err) => {
+      //   reject(err);
+      // });
+    });
+    return p;
+  }
+
+
 
 
   onLoginError(err) {
