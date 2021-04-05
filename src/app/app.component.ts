@@ -10,7 +10,6 @@ import {HttpClient} from '@angular/common/http';
 export class AppComponent {
   data$: Observable<any>;
 
-  constructor(private http: HttpClient) {
-    this.data$ = http.get('https://my-json-server.typicode.com/typicode/demo/posts');
-  }
+  constructor(private http: HttpClient) { }
+   
 }

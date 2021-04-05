@@ -27,7 +27,56 @@
 </ion-header>
 <hr>
 
-<ion-content class="card">
+<ion-content>
+  <ion-grid>
+    <ion-row class="cn-block" *ngFor="let card of cardData">
+      <ion-col size="9">
+        <div class="coin-blk">
+          <ion-avatar slot="start">
+            <img src=".././../assets/images/preeti.jpg">
+            <img src="{{profilePic}}">
+          </ion-avatar>
+        </div>
+        <div>
+          <p class="strong"><b>{{card.posttext}}</b></p>
+        </div>
+        
+      </ion-col>
+      <ion-col size="3">
+        <div>
+          <p class="crdname" routerLink="/account"><b>{{card.profilename}}</b></p>
+        </div>
+      </ion-col>
+      <div>
+        <img class="Ag-img" src=".././../assets/images/roads.png">
+        <img class="Ag-img" src="{{profilemedia}}">
+      </div>
+      <div>
+        <div>
+          <p>{{likes}}</p>
+          <p>{{comments}}</p>
+          <p>{{share}}</p>
+        </div>
+        <ion-icon name="heart-sharp"></ion-icon>
+        <ion-label>13k</ion-label>
+        &nbsp;
+        <ion-icon name="chatbubble-ellipses-sharp"></ion-icon>
+        <ion-label>3k</ion-label>
+        &nbsp;
+        <ion-icon name="arrow-redo-sharp"></ion-icon>
+        <ion-label>32</ion-label>
+      </div>
+      <div class="line"></div>
+    </ion-row>
+  </ion-grid>
+  <ion-fab horizontal="end" vertical="bottom" slot="fixed">
+    <ion-fab-button color="success">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>
+
+<!-- <ion-content class="card">
   <ion-item lines="none" no-padding>
     <ion-avatar slot="start">
       <img src=".././../assets/images/preeti.jpg">
@@ -155,7 +204,7 @@
   </ion-fab>
   <br>
 
-</ion-content>
+</ion-content> -->
 
 <ion-footer>
   <ion-toolbar>

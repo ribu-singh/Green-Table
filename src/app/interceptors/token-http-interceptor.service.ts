@@ -1,7 +1,7 @@
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import {LoginService} from './login.service';
+
 
 /**
  * This interceptor automatically adds the token header needed by our backend API if such token is present
@@ -12,16 +12,22 @@ import {LoginService} from './login.service';
 })
 export class TokenInterceptorService implements HttpInterceptor {
 
-  constructor(private loginService: LoginService) {}
+  constructor() {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     console.log('INTERCEPTOR');
-    const token = this.loginService.getAuthToken();
-    let newHeaders = req.headers;
-    if (token) {
-      newHeaders = newHeaders.append('authtoken', token);
-    }
-    const authReq = req.clone({headers: newHeaders});
-    return next.handle(authReq);
+    let localAuthData: string = localStorage.getItem('token');
+        if (localAuthData && !req.url.endsWith('/login')) {
+            let parsedAuthData = JSON.parse(localAuthData);
+            if (parsedAuthData && parsedAuthData.Token) {
+                req = req.clone({
+                    setHeaders: {
+                        Authorization: 'Bearer ' + parsedAuthData.Token
+                    }
+                });
+            }
+        }
+
+        return next.handle(req);
   }
 }
