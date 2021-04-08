@@ -28,46 +28,69 @@
 <hr>
 
 <ion-content>
-  <ion-grid>
-    <ion-row class="cn-block" *ngFor="let card of cardData">
+  <ion-grid *ngIf="isuserData">
+    <ion-row class="cn-block" *ngFor="let user of userdata">
       <ion-col size="9">
         <div class="coin-blk">
           <ion-avatar slot="start">
             <img src=".././../assets/images/preeti.jpg">
-            <img src="{{profilePic}}">
+            <!-- <img src="{{profilePic}}"> -->
           </ion-avatar>
         </div>
         <div>
-          <p class="strong"><b>{{card.posttext}}</b></p>
+          <p class="strong"><b>{{user.posttext}}</b></p>
         </div>
-        
+
       </ion-col>
       <ion-col size="3">
         <div>
-          <p class="crdname" routerLink="/account"><b>{{card.profilename}}</b></p>
+          <p class="crdname" routerLink="/account"><b>{{user.profilename}}</b></p>
         </div>
       </ion-col>
       <div>
-        <img class="Ag-img" src=".././../assets/images/roads.png">
-        <img class="Ag-img" src="{{profilemedia}}">
+        <img class="Ag-img" src=".././../assets/images/roads.png" *ngIf="!user.url">
+        <img class="Ag-img" src="{{user.url}}" *ngIf="user.url">
       </div>
       <div>
-        <div>
-          <p>{{likes}}</p>
+        <!-- <div>
+          <p>{{user.likes}}</p>
           <p>{{comments}}</p>
           <p>{{share}}</p>
-        </div>
+        </div> -->
         <ion-icon name="heart-sharp"></ion-icon>
-        <ion-label>13k</ion-label>
+        <!-- <ion-label>13k</ion-label> -->
+        <ion-label *ngIf="user.likes">{{user.likes}}</ion-label>
+        <ion-label *ngIf="!user.likes">13k</ion-label>
         &nbsp;
         <ion-icon name="chatbubble-ellipses-sharp"></ion-icon>
-        <ion-label>3k</ion-label>
+        <ion-label *ngIf="user.comments">{{user.comments}}</ion-label>
+        <ion-label *ngIf="!user.comments">13k</ion-label>
         &nbsp;
         <ion-icon name="arrow-redo-sharp"></ion-icon>
-        <ion-label>32</ion-label>
+        <ion-label *ngIf="user.share">{{user.share}}</ion-label>
+        <ion-label  *ngIf="!user.share">13k</ion-label>
       </div>
       <div class="line"></div>
     </ion-row>
+  </ion-grid>
+  <ion-grid *ngIf="!isuserData">
+    <div>
+      <ion-row>
+        <ion-col size="3">
+          <ion-skeleton-text animated style="width: 70px; height: 70px; border-radius: 35px;"></ion-skeleton-text>
+        </ion-col>
+        <ion-col size="9" style="margin-top: 5%;">
+          <ion-skeleton-text animated style="width: 70%;"></ion-skeleton-text>
+          <ion-skeleton-text animated style="width: 70%;  margin: 7% 0% 7% 0%;"></ion-skeleton-text>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-skeleton-text animated style="width: 70%; margin: 2% 0% 2% 5%;"></ion-skeleton-text>
+      </ion-row>
+      <ion-row>
+        <ion-skeleton-text animated style="width: 95%; height: 180px; margin: 4% 3% 0% 3%;"></ion-skeleton-text>
+      </ion-row>
+    </div>
   </ion-grid>
   <ion-fab horizontal="end" vertical="bottom" slot="fixed">
     <ion-fab-button color="success">

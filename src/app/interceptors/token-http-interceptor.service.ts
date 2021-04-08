@@ -17,7 +17,7 @@ export class TokenInterceptorService implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     console.log('INTERCEPTOR');
     let localAuthData: string = localStorage.getItem('userDetails');
-        if (localAuthData && !req.url.endsWith('/users')) {
+        if (localAuthData && !req.url.endsWith('/login')) {
             let parsedAuthData = JSON.parse(localAuthData);
             if (parsedAuthData && parsedAuthData.Token) {
                 req = req.clone({

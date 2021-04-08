@@ -6,8 +6,9 @@ import { Router, Routes } from '@angular/router';
 import { GooglePlus } from '@ionic-native/google-plus/ngx';
 import { LoadingController, Platform } from '@ionic/angular';
 import firebase from 'firebase/app';
-import * as appGlobals from '../app.globals';
 import { createEndpoint } from '../helpers/helper';
+import * as appGlobals from '../app.globals';
+
 
 
 @Component({
@@ -35,6 +36,7 @@ export class LoginComponent implements OnInit {
     this.loading = await this.loadingController.create({
       message: 'Connecting ...'
     });
+    // this. getDetails();
   }
 
   /**
@@ -45,7 +47,7 @@ export class LoginComponent implements OnInit {
     if (this.platform.is('cordova')) {
       if (this.platform.is('android')) {
         params = {
-          webClientId: '<WEB_CLIENT_ID>', //  webclientID 'string'
+          webClientId: '61367794172-g8ur3grf8jv3jt1eqit1o079ni778r5s.apps.googleusercontent.com', //  webclientID 'string'
           offline: true
         };
       } else {
@@ -110,17 +112,32 @@ export class LoginComponent implements OnInit {
    * @returns 
    */
   getData() {
+
     const p = new Promise((resolve, reject) => {
       const sendurl = (`${createEndpoint('api/users')}`);
+      const met = JSON.stringify(this.user);
       const data = {
-        name: this.user.displayName,
         email: this.user.email,
         googleuid: this.user.uid,
-        meta: JSON.stringify(this.user),
+        meta: met
       };
       this.http.post(sendurl, data).subscribe((done) => {
         resolve(done);
         this.router.navigate(['welcome']);
+      }, (err) => {
+        reject(err);
+      });
+    });
+    return p;
+  }
+
+  getDetails() {
+    const p = new Promise((resolve, reject) => {
+      const sendurl = (`${createEndpoint('api/users')}`);
+
+      this.http.get(sendurl).subscribe((done) => {
+        resolve(done);
+        // this.router.navigate(['welcome']);
       }, (err) => {
         reject(err);
       });

@@ -1,9 +1,11 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { GooglePlus } from '@ionic-native/google-plus/ngx';
 import { LoadingController, Platform } from '@ionic/angular';
 import { NavController } from '@ionic/angular';
+import { createEndpoint } from '../helpers/helper';
 
 
 
@@ -15,13 +17,14 @@ import { NavController } from '@ionic/angular';
 export class WelcomePage implements OnInit {
 
   public cardData = [];
-  public userdata = [];
+  public userdata: any;
+  public isuserData= false;
   public isGoogleLogin = false;
-  http: any;
 
   constructor(private google: GooglePlus,
     public loadingController: LoadingController,
     private fireAuth: AngularFireAuth,
+    private http: HttpClient,
     private platform: Platform,
     private router: Router,
     private navControl: NavController) {
@@ -36,21 +39,21 @@ export class WelcomePage implements OnInit {
 
 
   ngOnInit() {
-    // this.getCarddata;
+    this.getUserDetails();
   }
-  // getCarddata() {
-  //   const p = new Promise((resolve, reject) => {
-  //     this.http.get(link).subscribe((data) => {
-  //       resolve(data);
-  //       this.cardData = data;
-  //     }, (err) => {
-  //       reject(err);
-  //       console.log(err);
-  //     });
-  //   });
-
-  //   return p;
-  // }
+  getUserDetails() {
+    const p = new Promise((resolve, reject) => {
+      const sendurl = (`${createEndpoint('api/homecontent')}`);
+      this.http.get(sendurl).subscribe((done) => {
+        resolve(done);
+        this.isuserData = true;
+        this.userdata = done;
+      }, (err) => {
+        reject(err);
+      });
+    });
+    return p;
+  }
 
   logout() {
     this.fireAuth.signOut().then(() => {
