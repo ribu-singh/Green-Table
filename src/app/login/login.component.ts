@@ -112,9 +112,8 @@ export class LoginComponent implements OnInit {
    * @returns 
    */
   getData() {
-
     const p = new Promise((resolve, reject) => {
-      const sendurl = (`${createEndpoint('api/users')}`);
+      const sendurl = (`${createEndpoint('api/user')}`);
       const met = JSON.stringify(this.user);
       const data = {
         email: this.user.email,
