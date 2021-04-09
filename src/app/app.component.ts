@@ -16,10 +16,10 @@ export class AppComponent {
   ngOnInit() {
     let userDetails: any = localStorage.getItem('userDetails');
     userDetails = userDetails ? JSON.parse(userDetails) : undefined;
-    // if (userDetails) {
-    //   this.router.navigate(['welcome']);
-    // } else {
-    //   this.router.navigate(['/login']);
-    // }
+    if (userDetails) {
+      this.router.navigate(['welcome']);
+    } else {
+      this.router.navigate(['/login']);
+    }
   }
 }

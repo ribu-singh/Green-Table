@@ -21,6 +21,7 @@ export class LoginComponent implements OnInit {
   public loading: any;
   public isGoogleLogin = false;
   public user = null;
+  public tokenKey: any;
   public userData: any = {};
 
   constructor(
@@ -36,7 +37,7 @@ export class LoginComponent implements OnInit {
     this.loading = await this.loadingController.create({
       message: 'Connecting ...'
     });
-    // this. getDetails();
+    // this.getDetails();
   }
 
   /**
@@ -65,18 +66,19 @@ export class LoginComponent implements OnInit {
       console.log('else...');
       this.fireAuth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(success => {
         console.log('success in google login', success);
-        const details =
-        {
-          nickname: success.user.displayName,
-          email: success.user.email,
-          photo: success.user.photoURL,
-        }
+
         this.user = success.user;
+        // const details =
+        // {
+        //   nickname: this.user.displayName,
+        //   email: this.user.email,
+        //   photo: this.user.photoURL,
+        // }
         this.isGoogleLogin = true;
         this.getData().then((s: any) => {
-          if (s && s.user) {
-            localStorage.setItem(appGlobals.localStorageKeys.userDetails, JSON.stringify(details));
-          }
+          // if (s && s.user) {
+          //   localStorage.setItem(appGlobals.localStorageKeys.userDetails, JSON.stringify(details));
+          // }
         });
 
         // this.router.navigate(['welcome']);
@@ -119,9 +121,20 @@ export class LoginComponent implements OnInit {
         email: this.user.email,
         googleuid: this.user.uid,
         meta: met
-      };
+      }
       this.http.post(sendurl, data).subscribe((done) => {
         resolve(done);
+        this.tokenKey = done;
+        const details =
+        {
+          nickname: this.user.displayName,
+          email: this.user.email,
+          photo: this.user.photoURL,
+          Token: this.tokenKey.token,
+        }
+        if (done && this.user) {
+          localStorage.setItem(appGlobals.localStorageKeys.userDetails, JSON.stringify(details));
+        }
         this.router.navigate(['welcome']);
       }, (err) => {
         reject(err);
@@ -132,9 +145,12 @@ export class LoginComponent implements OnInit {
 
   getDetails() {
     const p = new Promise((resolve, reject) => {
-      const sendurl = (`${createEndpoint('api/users')}`);
-
-      this.http.get(sendurl).subscribe((done) => {
+      const sendurl = (`${createEndpoint('api/profile/1')}`);
+      const body = {
+        id: 1,
+        firstname: "rghtx"
+      }
+      this.http.put(sendurl, body).subscribe((done) => {
         resolve(done);
         // this.router.navigate(['welcome']);
       }, (err) => {
@@ -158,6 +174,8 @@ export class LoginComponent implements OnInit {
   logout() {
     this.fireAuth.signOut().then(() => {
       this.isGoogleLogin = false;
+      window.localStorage.removeItem('userDetails');
+      window.localStorage.removeItem('token');
       this.router.navigate(['login']);
     });
   }

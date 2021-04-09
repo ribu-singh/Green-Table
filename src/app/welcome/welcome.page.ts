@@ -42,6 +42,7 @@ export class WelcomePage implements OnInit {
     this.getUserDetails();
   }
   getUserDetails() {
+    this.isuserData= false;
     const p = new Promise((resolve, reject) => {
       const sendurl = (`${createEndpoint('api/homecontent')}`);
       this.http.get(sendurl).subscribe((done) => {
@@ -49,6 +50,7 @@ export class WelcomePage implements OnInit {
         this.isuserData = true;
         this.userdata = done;
       }, (err) => {
+        this.isuserData = false;
         reject(err);
       });
     });

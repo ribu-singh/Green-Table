@@ -1,5 +1,6 @@
 export const localStorageKeys = {
     userDetails: 'userDetails',
+    // Token:'Token',
 };
 // export const utils = {
 //     trimText: (text: string, charlength: number) => {
