@@ -5,18 +5,26 @@
         <ion-icon slot="icon-only" name="menu"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-buttons slot="end">
-      <ion-button color="dark">
+    <ion-buttons slot="end" class="qrbtn">
+      <!-- <ion-button color="dark">
         <ion-icon slot="icon-only" name="qr-code-sharp"></ion-icon>
         <ion-label class="txt">QR Code</ion-label>
         <div class="txt"></div>
-      </ion-button>
+      </ion-button> -->
+      <ion-tab-button tab="QR Code">
+        <ion-label class="txt">QR Code</ion-label>
+        <ion-icon name="qr-code-sharp"></ion-icon>
+      </ion-tab-button>
     </ion-buttons>
-    <ion-buttons slot="end">
-      <ion-button color="dark">
+    <ion-buttons slot="end" class="qrbtn">
+      <!-- <ion-button color="dark">
         <ion-icon slot="icon-only" name="logo-bitcoin"></ion-icon>
         <ion-label class="txt">Green Coins</ion-label>
-      </ion-button>
+      </ion-button> -->
+      <ion-tab-button tab="Green Coins">
+        <img class="grn-coins" src="../../assets/images/Group 175@1X (1).png">
+        <ion-label class="txt1">Green Coins</ion-label>
+      </ion-tab-button>
     </ion-buttons>
     <ion-buttons slot="end">
       <ion-button color="dark">
@@ -31,11 +39,13 @@
   <ion-grid *ngIf="isuserData">
     <ion-row class="cn-block" *ngFor="let user of userdata">
       <ion-col size="9">
+        <div class="lines"></div>
         <div class="coin-blk">
           <ion-avatar slot="start">
             <img src=".././../assets/images/preeti.jpg">
             <!-- <img src="{{profilePic}}"> -->
           </ion-avatar>
+          <div class="lines"></div>
         </div>
         <div>
           <p class="strong"><b>{{user.posttext}}</b></p>
@@ -68,7 +78,7 @@
         &nbsp;
         <ion-icon name="arrow-redo-sharp"></ion-icon>
         <ion-label *ngIf="user.share">{{user.share}}</ion-label>
-        <ion-label  *ngIf="!user.share">13k</ion-label>
+        <ion-label *ngIf="!user.share">13k</ion-label>
       </div>
       <div class="line"></div>
     </ion-row>
@@ -98,136 +108,6 @@
     </ion-fab-button>
   </ion-fab>
 </ion-content>
-
-<!-- <ion-content class="card">
-  <ion-item lines="none" no-padding>
-    <ion-avatar slot="start">
-      <img src=".././../assets/images/preeti.jpg">
-    </ion-avatar>
-    <ion-label class="avatar" routerLink="/account">Preeti Singh</ion-label>
-  </ion-item>
-  <ion-card-content class="text">
-    We have Planted 30 Tress And Cleaned 3 Roads!
-  </ion-card-content>
-  <img class="Ag-img" src=".././../assets/images/roads.png">
-  <div class="flex-button">
-    <div>
-      <ion-icon name="heart-sharp"></ion-icon>
-      <ion-label>13k</ion-label>
-      &nbsp;
-      <ion-icon name="chatbubble-ellipses-sharp"></ion-icon>
-      <ion-label>3k</ion-label>
-      &nbsp;
-      <ion-icon name="arrow-redo-sharp"></ion-icon>
-      <ion-label>32</ion-label>
-    </div>
-  </div>
-  <br>
-
-
-  <ion-item lines="none" no-padding>
-    <ion-avatar slot="start">
-      <img src=".././../assets/images/arjun jain.jpg">
-    </ion-avatar>
-    <ion-label class="avatar" routerLink="/account">Arjun Jain</ion-label>
-  </ion-item>
-  <ion-card-content class="text">
-    We Are Working On An Initiative To Plant More Trees!
-  </ion-card-content>
-  <img class="Ag-img" src=".././../assets/images/trees.png">
-  <div class="flex-button">
-    <div>
-      <ion-icon name="heart-sharp"></ion-icon>
-      <ion-label>13k</ion-label>
-      &nbsp;
-      <ion-icon name="chatbubble-ellipses-sharp"></ion-icon>
-      <ion-label>3k</ion-label>
-      &nbsp;
-      <ion-icon name="arrow-redo-sharp"></ion-icon>
-      <ion-label>32</ion-label>
-    </div>
-  </div>
-  <br>
-
-  <ion-item lines="none" no-padding>
-    <ion-avatar slot="start">
-      <img src=".././../assets/images/payal.png">
-    </ion-avatar>
-    <ion-label class="avatar" routerLink="/account">Payal Saxena</ion-label>
-  </ion-item>
-  <ion-card-content class="text">
-    New Baby In The House
-  </ion-card-content>
-  <img class="Ag-img" src=".././../assets/images/babyplant.jpg">
-  <div class="flex-button">
-    <div>
-      <ion-icon name="heart-sharp"></ion-icon>
-      <ion-label>13k</ion-label>
-      &nbsp;
-      <ion-icon name="chatbubble-ellipses-sharp"></ion-icon>
-      <ion-label>3k</ion-label>
-      &nbsp;
-      <ion-icon name="arrow-redo-sharp"></ion-icon>
-      <ion-label>32</ion-label>
-    </div>
-  </div>
-  <br>
-
-  <ion-item lines="none" no-padding>
-    <ion-avatar slot="start">
-      <img src=".././../assets/images/rohan.jpg">
-    </ion-avatar>
-    <ion-label class="avatar" routerLink="/account">Rohan Jain</ion-label>
-  </ion-item>
-  <ion-card-content class="text">
-    Plants!
-  </ion-card-content>
-  <img class="Ag-img" src=".././../assets/images/plants.jpg">
-  <div class="flex-button">
-    <div>
-      <ion-icon name="heart-sharp"></ion-icon>
-      <ion-label>13k</ion-label>
-      &nbsp;
-      <ion-icon name="chatbubble-ellipses-sharp"></ion-icon>
-      <ion-label>3k</ion-label>
-      &nbsp;
-      <ion-icon name="arrow-redo-sharp"></ion-icon>
-      <ion-label>32</ion-label>
-    </div>
-  </div>
-  <br>
-
-
-  <ion-item lines="none" no-padding>
-    <ion-avatar slot="start">
-      <img src=".././../assets/images/arjun jain.jpg">
-    </ion-avatar>
-    <ion-label class="avatar" routerLink="/account">Arjun Singh</ion-label>
-  </ion-item>
-  <ion-card-content class="text">
-    We Have Planted 30 Tress And Cleaned 3 Roads
-  </ion-card-content>
-  <img class="Ag-img" src=".././../assets/images/Agriculture.jpg">
-  <div class="flex-button">
-    <div>
-      <ion-icon name="heart-sharp"></ion-icon>
-      <ion-label>13k</ion-label>
-      &nbsp;
-      <ion-icon name="chatbubble-ellipses-sharp"></ion-icon>
-      <ion-label>3k</ion-label>
-      &nbsp;
-      <ion-icon name="arrow-redo-sharp"></ion-icon>
-      <ion-label>32</ion-label>
-    </div>
-  </div>
-  <ion-fab horizontal="end" vertical="bottom" slot="fixed">
-    <ion-fab-button color="success">
-      <ion-icon name="add"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
-  <br>
-
-</ion-content> -->
 
 <ion-footer>
   <ion-toolbar>
