@@ -18,7 +18,7 @@ export class WelcomePage implements OnInit {
 
   public cardData = [];
   public userdata: any;
-  public isuserData= false;
+  public isuserData = false;
   public isGoogleLogin = false;
 
   constructor(private google: GooglePlus,
@@ -42,7 +42,7 @@ export class WelcomePage implements OnInit {
     this.getUserDetails();
   }
   getUserDetails() {
-    this.isuserData= false;
+    this.isuserData = false;
     const p = new Promise((resolve, reject) => {
       const sendurl = (`${createEndpoint('api/homecontent')}`);
       this.http.get(sendurl).subscribe((done) => {
@@ -60,6 +60,7 @@ export class WelcomePage implements OnInit {
   logout() {
     this.fireAuth.signOut().then(() => {
       this.isGoogleLogin = false;
+      window.localStorage.removeItem('userDetails');
       this.router.navigate(['login']);
     });
   }

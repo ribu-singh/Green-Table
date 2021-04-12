@@ -130,7 +130,7 @@ export class LoginComponent implements OnInit {
           nickname: this.user.displayName,
           email: this.user.email,
           photo: this.user.photoURL,
-          Token: this.tokenKey.token,
+          userDetails: this.tokenKey,
         }
         if (done && this.user) {
           localStorage.setItem(appGlobals.localStorageKeys.userDetails, JSON.stringify(details));
@@ -174,8 +174,7 @@ export class LoginComponent implements OnInit {
   logout() {
     this.fireAuth.signOut().then(() => {
       this.isGoogleLogin = false;
-      window.localStorage.removeItem('userDetails');
-      window.localStorage.removeItem('token');
+      // window.localStorage.removeItem('token');
       this.router.navigate(['login']);
     });
   }
