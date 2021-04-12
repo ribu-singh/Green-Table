@@ -26,7 +26,7 @@
         <ion-label class="txt1">Green Coins</ion-label>
       </ion-tab-button>
     </ion-buttons>
-    <ion-buttons slot="end">
+    <ion-buttons slot="end" routerLink="/account">
       <ion-button color="dark">
         <ion-icon slot="icon-only" name="wallet"></ion-icon>
       </ion-button>
@@ -39,22 +39,21 @@
   <ion-grid *ngIf="isuserData">
     <ion-row class="cn-block" *ngFor="let user of userdata">
       <ion-col size="9">
-        <div class="lines"></div>
+        <!-- <div class="lines"></div> -->
         <div class="coin-blk">
           <ion-avatar slot="start">
-            <img src=".././../assets/images/preeti.jpg">
-            <!-- <img src="{{profilePic}}"> -->
+           <img src=".././../assets/images/preeti.jpg">
+            <!-- <img src="{{user.profilemedia}}"> -->
           </ion-avatar>
-          <div class="lines"></div>
+          <!-- <div class="lines"></div> -->
         </div>
         <div>
           <p class="strong"><b>{{user.posttext}}</b></p>
         </div>
-
       </ion-col>
       <ion-col>
         <div>
-          <p class="crdname" routerLink="/account"><b>{{user.profilename}}</b></p>
+          <p class="crdname"><b>{{user.profilename}}</b></p>
         </div>
       </ion-col>
       <div>
@@ -121,7 +120,7 @@
           <ion-icon name="search-sharp" class="footer-icon"></ion-icon>
         </ion-tab-button>
 
-        <ion-tab-button>
+        <ion-tab-button routerLink="/account">
           <ion-icon name="wallet-sharp" class="footer-icon"></ion-icon>
         </ion-tab-button>
       </ion-tab-bar>
