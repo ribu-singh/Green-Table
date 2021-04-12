@@ -10,8 +10,8 @@ export const environment = {
     projectId: "green-table-be253",
     storageBucket: "green-table-be253.appspot.com",
     messagingSenderId: "61367794172",
-    appId: "1:61367794172:web:7eff66e40e5e346146da79",
-    measurementId: "G-G6MQ554SK9"
+    appId: "1:61367794172:web:33320579cd574bb446da79",
+    measurementId: "G-VVXZGVKSEM"
   }
 };
 
