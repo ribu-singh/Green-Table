@@ -12,22 +12,23 @@ import { Observable } from 'rxjs';
 })
 export class TokenInterceptorService implements HttpInterceptor {
 
-  constructor() {}
+  constructor() { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     console.log('INTERCEPTOR');
     let localAuthData: string = localStorage.getItem('userDetails');
-        if (localAuthData && !req.url.endsWith('/login')) {
-            let parsedAuthData = JSON.parse(localAuthData);
-            if (parsedAuthData && parsedAuthData.Token) {
-                req = req.clone({
-                    setHeaders: {
-                        Authorization: 'Bearer ' + parsedAuthData.Token
-                    }
-                });
-            }
-        }
+    if (localAuthData && !req.url.endsWith('/login')) {
+      let parsedAuthData = JSON.parse(localAuthData);
+      if (parsedAuthData && parsedAuthData.userDetails.token) {
+        req = req.clone({
+          setHeaders: {
+            Authorization: 'Bearer' + parsedAuthData.userDetails.token
+            // Authorization: parsedAuthData.userDetails.token
+          }
+        });
+      }
+    }
 
-        return next.handle(req);
+    return next.handle(req);
   }
 }

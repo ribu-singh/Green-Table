@@ -14,6 +14,9 @@ import { AngularFireModule } from '@angular/fire';
 import { environment } from 'src/environments/environment';
 import { GooglePlus } from '@ionic-native/google-plus/ngx';
 import { AngularFireAuthModule } from '@angular/fire/auth';
+import { Camera } from '@ionic-native/camera/ngx';
+import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 
 
 @NgModule({
@@ -28,7 +31,7 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
     provide: HTTP_INTERCEPTORS,
     useClass: TokenInterceptorService,
     multi: true
-  }, GooglePlus],
+  }, GooglePlus, Camera, StatusBar, SplashScreen],
   bootstrap: [AppComponent],
 })
 

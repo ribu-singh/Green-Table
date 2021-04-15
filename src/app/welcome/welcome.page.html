@@ -101,7 +101,9 @@
       </ion-row>
     </div>
   </ion-grid>
-  <ion-fab horizontal="end" vertical="bottom" slot="fixed">
+  <ion-fab horizontal="end" vertical="bottom" slot="fixed" (click)="loadImageActionSheet1()">
+    <input #userInput style="position: absolute; width: 0; height: 0; opacity: 0" type="file"
+      (change)="readSelectedFile($event)" class="fileInput">
     <ion-fab-button color="success">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
