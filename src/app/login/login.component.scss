@@ -1,10 +1,11 @@
 .la-img {
-    width: 80%;
+    width: 64%;
     position: relative;
-    left: 9%;
+    left: 19%;
 }
 .page {
-    --background: linear-gradient(204deg, #edf5f3, #dfeeebf3, #a2e2d9f3, #a0ebdef5) !important;
+    // --background: linear-gradient(204deg, #edf5f3, #dfeeebf3, #86e6a2f3, #a0eba6f5) !important;
+    --background: linear-gradient(204deg, #edf5f3, #dfeeebf3, #a5d8b0f3, #aee2b2f5) !important;
 }
 .time-box {
     background: green;
@@ -26,6 +27,7 @@
     margin-left: 32%;
     font-weight: 600;
     font-size: 18px;
+    margin-top: -2%;
 }
 .txt-blk {
     text-align: center;
@@ -37,7 +39,10 @@
 }
 .txt-blk-2 {
     text-align: center;
-    margin: 0% 12% 0% 12%;
+    margin: -4% 11% 0% 11%;
+    font-weight: bold;
+    opacity: 0.6;
+    font-size: 15px;
 }
 .google-box {
     position: relative;
@@ -57,7 +62,7 @@
     border-radius: 21px;
     background: black;
     height: 45px;
-    margin: 4% 0% 0% 5%;
+    margin: 2% 0% 0% 5%;
 }
 .log-txt {
     font-weight: 600;

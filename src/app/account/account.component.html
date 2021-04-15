@@ -2,21 +2,21 @@
   <ion-toolbar>
     <div (click)="back()">
       <ion-icon name="arrow-back-outline" class="back-icon"></ion-icon>
-      <ion-icon name="menu-outline" class="menu-icon"></ion-icon>
+      <ion-icon name="ellipsis-vertical" class="menu-icon"></ion-icon>
     </div>
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <ion-grid>
+  <ion-grid [fixed]="true">
     <ion-row *ngIf="userDetails">
       <ion-col size="3">
         <!-- <div class="pro-circle">
           <ion-icon name="person-circle-outline" class="user-img"></ion-icon>
         </div> -->
-        <ion-avatar class="profile">
+        <!-- <ion-avatar class="profile"> -->
           <!-- <ion-icon name="person-circle-outline" class="user-img"></ion-icon> -->
-          <img class="pro-circle" src="{{userDetails.photo}}">
-        </ion-avatar>
+          <ion-img class="pro-circle" src="{{userDetails.photo}}"></ion-img>
+        <!-- </ion-avatar> -->
       </ion-col>
       <ion-col size="9">
         <div>
@@ -29,7 +29,9 @@
         </div>
       </ion-col>
     </ion-row>
-    <div><img src="../../assets/images/park.jpg"></div>
+    <div class="screen">
+      <img src="../../assets/images/screen4.png">
+    </div>
     <ion-row>
       <div class="line"></div>
     </ion-row>
@@ -48,13 +50,15 @@
         </div>
       </ion-col>
     </ion-row>
-    <div><img src="../../assets/images/coin.jpg"></div>
+    <div class="Redeem">
+      <img src="../../assets/images/Group 186@1X.png">
+    </div>
     <ion-row>
       <div class="line-2">
         <p class="trans-text">Transaction History</p>
       </div>
       <div>
-        <p><b>Februrary 2021</b></p>
+        <p class="month"><b>Februrary 2021</b></p>
       </div>
     </ion-row>
     <ion-row class="cn-block" *ngFor="let coin of coinData">
@@ -75,6 +79,20 @@
         </div>
       </ion-col>
     </ion-row>
+    <ion-col>
+      <ion-row>
+        <div class="frdimg">
+          <img src="../../assets/images/friends.png"> 
+        </div>
+      </ion-row>
+    </ion-col>
+    <!-- <ion-col>
+      <ion-row>
+        <div class="button">
+          <p>Invite Your Friends to Earn More</p>
+        </div>
+      </ion-row>
+    </ion-col> -->
   </ion-grid>
 </ion-content>
 <ion-footer>

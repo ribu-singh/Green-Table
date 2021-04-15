@@ -66,18 +66,18 @@
           <p>{{comments}}</p>
           <p>{{share}}</p>
         </div> -->
-        <ion-icon name="heart-sharp"></ion-icon>
+        <ion-icon name="heart-sharp" color="danger" class="heart"></ion-icon>
         <!-- <ion-label>13k</ion-label> -->
         <ion-label *ngIf="user.likes">{{user.likes}}</ion-label>
-        <ion-label *ngIf="!user.likes">13k</ion-label>
+        <ion-label *ngIf="!user.likes">13K</ion-label>
         &nbsp;
-        <ion-icon name="chatbubble-ellipses-sharp"></ion-icon>
+        <ion-icon name="chatbubble-ellipses-sharp" color="primary" class="comment"></ion-icon>
         <ion-label *ngIf="user.comments">{{user.comments}}</ion-label>
-        <ion-label *ngIf="!user.comments">13k</ion-label>
+        <ion-label *ngIf="!user.comments">3K</ion-label>
         &nbsp;
-        <ion-icon name="arrow-redo-sharp"></ion-icon>
+        <ion-icon name="arrow-redo-sharp" class="share"></ion-icon>
         <ion-label *ngIf="user.share">{{user.share}}</ion-label>
-        <ion-label *ngIf="!user.share">13k</ion-label>
+        <ion-label *ngIf="!user.share">32</ion-label>
       </div>
       <div class="line"></div>
     </ion-row>
