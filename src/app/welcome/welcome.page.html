@@ -41,8 +41,8 @@
       <ion-col size="9">
         <div class="coin-blk">
           <ion-avatar slot="start" class="images">
-           <img src=".././../assets/images/preeti.jpg">
-           <!-- <img src="{{user.profilemedia}}"> -->
+            <img src=".././../assets/images/preeti.jpg">
+            <!-- <img src="{{user.profilemedia}}"> -->
             <div>
               <p class="crdname"><b>{{user.profilename}}</b></p>
             </div>
@@ -61,11 +61,11 @@
         <img class="Ag-img" src=".././../assets/images/plants.jpg" *ngIf="!user.url">
         <img class="Ag-img" src="{{user.url}}" *ngIf="user.url">
       </div>
-      <div>
+      <div class="like-div">
         <ion-icon name="heart-sharp" color="danger" class="heart"></ion-icon>
         <!-- <ion-label>13k</ion-label> -->
-        <ion-label *ngIf="user.likes">{{user.likes}}</ion-label>
-        <ion-label *ngIf="!user.likes">13K</ion-label>
+        <ion-label *ngIf="user.likes" class="heart-count">{{user.likes}}</ion-label>
+        <ion-label *ngIf="!user.likes" class="heart-count">13K</ion-label>
         &nbsp;
         <ion-icon name="chatbubble-ellipses-sharp" color="primary" class="comment"></ion-icon>
         <ion-label *ngIf="user.comments">{{user.comments}}</ion-label>

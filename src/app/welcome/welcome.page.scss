@@ -2,7 +2,7 @@
     width: 100% !important;
 }
 .page {
-     --background: linear-gradient(204deg, #baf0a1, #d2f3ecf3, #b9e4b1f3, #b2e4dbf5) !important;
+    --background: linear-gradient(204deg, #baf0a1, #d2f3ecf3, #b9e4b1f3, #b2e4dbf5) !important;
     padding: 0%;
 }
 .txt {
@@ -12,7 +12,7 @@
     left: -5%;
     margin: 3%;
 }
-.images{
+.images {
     zoom: 1;
 }
 
@@ -27,19 +27,21 @@
     position: relative;
     left: 0px;
 }
-.coin-blk{
+.like-div {
+    margin: 2%;
+}
+.coin-blk {
     width: 145%;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.13);
     text-align: center;
-    margin-left: -2%;
+    margin-left: -3%;
     padding: 3%;
 }
 
-.qrbtn{
+.qrbtn {
     margin: 3%;
     padding-block-end: 0% !important;
 }
-
 
 .card {
     margin-top: 18% !important;
@@ -76,14 +78,14 @@
     display: flex;
     justify-content: space-between !important;
 }
-.strong{
+.strong {
     font-weight: bold;
     font-size: 14px;
     text-align: start;
     margin-top: 6%;
     // padding: 4%;
 }
-.crdname{
+.crdname {
     margin-top: -38px;
     margin-right: -203px;
 }
@@ -117,14 +119,20 @@
     opacity: 1;
 }
 
-.heart{
-    zoom: 1;
+.heart {
+    zoom: 1.3;
+    margin-bottom: -3px;
 }
-.comment{
-    zoom: 1;
+.heart-count {
+    --padding-top: 9px;
 }
-.share{
-    zoom: 1;
+.comment {
+    zoom: 1.3;
+    margin-bottom: -3px;
+}
+.share {
+    zoom: 1.3;
+    margin-bottom: -3px;
 }
 // .lines {
 //     width: 138%;
