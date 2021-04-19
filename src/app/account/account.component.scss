@@ -9,8 +9,8 @@
     zoom: 5;
 }
 .profile {
-    height: 79px !important;
-    width: 79px !important;
+    height: 100px !important;
+    width: 100px !important;
 }
 .pro-circle {
     display: flex;
@@ -63,6 +63,7 @@
 }
 .grn-coin {
     width: 67%;
+    padding-bottom: 5%;
 }
 .coin-blk {
     display: flex;
@@ -125,15 +126,11 @@
 .button {
     background-color:  #8ec08f;;
     border-radius: 21px !important;
-    border: none;
-    padding: 10px;
     text-align: center;
     font-weight: 600;
-    display: flex;
-    width: 47%;
-    margin-left: 51%;
-    margin-top: -38%;
-    font-size: 15px;
+    width: 41%;
+    height: 30%;
+    margin-top: 53px;
 }
 .screen{
     width: 100%;
@@ -143,8 +140,3 @@
     // left: 48px;
     margin-bottom: -2%;
 }
-// @media (max-width: 768px) {
-//     .txt {
-//         margin-left: -12%;
-//     }
-// }

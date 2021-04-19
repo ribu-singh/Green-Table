@@ -39,33 +39,29 @@
   <ion-grid *ngIf="isuserData">
     <ion-row class="cn-block" *ngFor="let user of userdata">
       <ion-col size="9">
-        <!-- <div class="lines"></div> -->
         <div class="coin-blk">
-          <ion-avatar slot="start">
+          <ion-avatar slot="start" class="images">
            <img src=".././../assets/images/preeti.jpg">
-            <!-- <img src="{{user.profilemedia}}"> -->
+           <!-- <img src="{{user.profilemedia}}"> -->
+            <div>
+              <p class="crdname"><b>{{user.profilename}}</b></p>
+            </div>
           </ion-avatar>
-          <!-- <div class="lines"></div> -->
         </div>
         <div>
           <p class="strong"><b>{{user.posttext}}</b></p>
         </div>
       </ion-col>
-      <ion-col>
+      <!-- <ion-col>
         <div>
           <p class="crdname"><b>{{user.profilename}}</b></p>
         </div>
-      </ion-col>
+      </ion-col> -->
       <div>
-        <img class="Ag-img" src=".././../assets/images/roads.png" *ngIf="!user.url">
+        <img class="Ag-img" src=".././../assets/images/plants.jpg" *ngIf="!user.url">
         <img class="Ag-img" src="{{user.url}}" *ngIf="user.url">
       </div>
       <div>
-        <!-- <div>
-          <p>{{user.likes}}</p>
-          <p>{{comments}}</p>
-          <p>{{share}}</p>
-        </div> -->
         <ion-icon name="heart-sharp" color="danger" class="heart"></ion-icon>
         <!-- <ion-label>13k</ion-label> -->
         <ion-label *ngIf="user.likes">{{user.likes}}</ion-label>

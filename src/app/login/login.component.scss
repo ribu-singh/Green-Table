@@ -19,7 +19,7 @@
 }
 .tm-txt {
     color: #edf5f3;
-    margin: 3.6%;
+    margin: 10px;
     text-align: center;
 }
 .cl-txt {
@@ -27,7 +27,9 @@
     margin-left: 32%;
     font-weight: 600;
     font-size: 18px;
-    margin-top: -2%;
+}
+.clock{
+    text-align: center;
 }
 .txt-blk {
     text-align: center;
@@ -46,49 +48,76 @@
 }
 .google-box {
     position: relative;
-    width: 90%;
+    left: 6%;
+    width: 80%;
     display: flex;
-    padding: 2%;
-    border-radius: 21px;
+    padding: 1.8%;
+    border-radius: 30px;
     background: white;
-    height: 45px;
-    margin: 8% 0% 0% 5%;
+    margin: 184px 0px 0px 18px;
+    // margin: 8% 0% 0% 5%;
 }
 .apple-box {
     position: relative;
-    width: 90%;
+    left: 6%;
+    width: 80%;
     display: flex;
     padding: 1.8%;
-    border-radius: 21px;
+    border-radius: 30px;
     background: black;
-    height: 45px;
-    margin: 2% 0% 0% 5%;
+    margin: 4px 0px 0px 18px;
+    // margin: 2% 0% 0% 5%;
 }
 .log-txt {
     font-weight: 600;
     padding: 0%;
-    margin: 2% 0 0 15%;
+    // margin: 2% 0 0 15%;
     font-size: 16px;
+    margin: auto;
 }
 .apl-text {
     font-weight: 600;
     padding: 0%;
     color: white;
-    margin: 2% 0 0 15%;
+    // margin: 2% 0 0 15%;
     font-size: 16px;
+    margin: auto;
 }
 .ggl-logo {
     zoom: 2;
+    margin-top: -1px;
 }
 .appl-logo {
     zoom: 2;
     color: white;
+    margin-top: -1px;
 }
-.line {
-    width: 95%;
+ .line {
+    // width: 75%;
     padding: 1px;
-    margin-top: 12%;
+    margin-top: 19px;
+    // margin-left: 17px;
     height: 2px;
     background-color: black;
     opacity: 1;
+}
+.clo-txt{
+    text-align: center;
+    position: relative;
+}
+.clock{
+    font-size: 18px;
+    font-weight: bold;
+}
+.txt-pla{
+    text-align: center;
+    font-size: 22px;
+    font-weight: bold;
+}
+.txt-pla1{
+    text-align: center;
+    font-size: 15px;
+    font-weight: bold;
+    opacity: 0.6;
+    margin-top: -4%;
 }

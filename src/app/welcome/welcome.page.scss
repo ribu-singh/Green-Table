@@ -12,6 +12,9 @@
     left: -5%;
     margin: 3%;
 }
+.images{
+    zoom: 1;
+}
 
 .txt1 {
     font-weight: bold !important;
@@ -77,17 +80,22 @@
     font-weight: bold;
     font-size: 14px;
     text-align: start;
-    margin-top: 8%;
+    margin-top: 6%;
     // padding: 4%;
 }
 .crdname{
-    font-size: 18px;
-    font-weight: bold;
-    margin-top: 26%;
-    display: flex;
-    position: relative;
-    right: 257%;
+    margin-top: -38px;
+    margin-right: -203px;
 }
+
+// .crdname{
+//     font-size: 18px;
+//     font-weight: bold;
+//     margin-top: 26%;
+//     display: flex;
+//     position: relative;
+//     right: 257%;
+// }
 
 // .crdname{
 //     font-size: 18px;
