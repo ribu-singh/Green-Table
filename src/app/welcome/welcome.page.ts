@@ -19,6 +19,7 @@ export class WelcomePage implements OnInit {
 
   public cardData = [];
   public userdata: any;
+  public isuploading = false;
   public isuserData = false;
   public isGoogleLogin = false;
   userImg: any = '';
@@ -129,9 +130,76 @@ export class WelcomePage implements OnInit {
     reader.readAsDataURL(files[0]);
     reader.onload = function () {
       console.log(reader.result);//base64encoded string
-      // self.uploadFile(files[0], reader.result);
+      self.uploadFile(files[0], reader.result);
     };
   }
+
+  async uploadFile(f, base) {
+    const loading = await this.loadingController.create({
+      cssClass: 'my-custom-class',
+      message: ''
+    });
+    await loading.present();
+    this.isuploading = true;
+    const p = new Promise((resolve, reject) => {
+      const blob = this.convertBase64ToBlob(base);
+      const formData = new FormData();
+      formData.append('file', blob, f.name);
+      this.http.post(`${createEndpoint('api/home')}`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }).subscribe((res: any) => {
+
+        resolve(res);
+        this.isuploading = false;
+        loading.dismiss();
+
+        console.log(res);
+      }, (err) => {
+        reject(err);
+        this.isuploading = false;
+        loading.dismiss();
+      });
+    });
+    return p;
+
+  }
+
+  getInfoFromBase64(base64: string) {
+    const meta = base64.split(',')[0];
+    const rawBase64 = base64.split(',')[1].replace(/\s/g, '');
+    const mime = /:([^;]+);/.exec(meta)[1];
+    const extension = /\/([^;]+);/.exec(meta)[1];
+
+    return {
+      mime,
+      extension,
+      meta,
+      rawBase64
+    };
+  }
+
+  convertBase64ToBlob(base64: string) {
+    const info = this.getInfoFromBase64(base64);
+    const sliceSize = 512;
+    const byteCharacters = window.atob(info.rawBase64);
+    const byteArrays = [];
+
+    for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+      const slice = byteCharacters.slice(offset, offset + sliceSize);
+      const byteNumbers = new Array(slice.length);
+
+      for (let i = 0; i < slice.length; i++) {
+        byteNumbers[i] = slice.charCodeAt(i);
+      }
+
+      byteArrays.push(new Uint8Array(byteNumbers));
+    }
+
+    return new Blob(byteArrays, { type: info.mime });
+  }
+
 
   ngAfterViewInit() {
     this.userInputElement = this.userInputViewChild.nativeElement;
