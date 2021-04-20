@@ -1,7 +1,7 @@
 <ion-header collapse="condense">
   <ion-toolbar>
-    <div (click)="back()">
-      <ion-icon name="arrow-back-outline" class="back-icon"></ion-icon>
+    <div>
+      <ion-icon name="arrow-back-outline" class="back-icon" (click)="back()"></ion-icon>
       <ion-icon name="ellipsis-vertical" class="menu-icon"></ion-icon>
     </div>
   </ion-toolbar>
@@ -14,8 +14,8 @@
           <ion-icon name="person-circle-outline" class="user-img"></ion-icon>
         </div> -->
         <!-- <ion-avatar class="profile"> -->
-          <!-- <ion-icon name="person-circle-outline" class="user-img"></ion-icon> -->
-            <ion-img class="pro-circle" src="{{userDetails.photo}}"></ion-img>
+        <!-- <ion-icon name="person-circle-outline" class="user-img"></ion-icon> -->
+        <ion-img class="pro-circle" src="{{userDetails.photo}}"></ion-img>
         <!-- </ion-avatar> -->
       </ion-col>
       <ion-col size="9">
