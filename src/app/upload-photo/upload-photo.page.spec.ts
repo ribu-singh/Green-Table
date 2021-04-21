@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { PicturePage } from './picture.page';
+import { PicturePage } from './upload-photo.page';
 
 describe('PicturePage', () => {
   let component: PicturePage;

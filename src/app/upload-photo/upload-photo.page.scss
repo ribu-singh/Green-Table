@@ -1,28 +1,41 @@
-.h1-txt{
+.h1-txt {
     margin-top: 20px;
     font-size: 21px;
     padding: 19px;
 }
-.file-text{
+.file-text {
     font-size: 21px;
     padding: 19px;
     margin-top: -24px;
 }
-
-.form-control{
+.back-icon {
+    zoom: 2;
+}
+.menu-icon {
+    float: right;
+}
+.camera-icon{
+    zoom: 2;
+}
+.pro-circle {
+    border-radius: 45px;
+    width: 75%;
+    margin: 12%;
+}
+.form-control {
     padding: 19px;
     margin-top: -22px;
 }
-.file-required{
+.file-required {
     padding: 19px;
     margin-top: -29px;
 }
-.caption{
+.caption {
     width: 100%;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.13);
     margin-left: 10px;
 }
-.post{
+.post {
     padding: 19px;
     text-align: center;
 }

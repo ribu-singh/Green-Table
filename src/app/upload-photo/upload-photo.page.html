@@ -1,0 +1,52 @@
+<ion-header collapse="condense">
+    <ion-toolbar>
+        <div>
+            <ion-icon name="arrow-back-outline" class="back-icon" (click)="back()"></ion-icon>
+            <ion-buttons slot="end" class="menu-icon">
+                <ion-button>
+                    Done
+                </ion-button>
+            </ion-buttons>
+            <!-- <ion-icon name="ellipsis-vertical" class="menu-icon"></ion-icon> -->
+        </div>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-grid>
+        <ion-row>
+            <ion-col size="3">
+                <ion-img class="pro-circle" src="{{userDetails.photo}}"></ion-img>
+            </ion-col>
+            <ion-col size="7">
+                <div>
+                    <p class="txt"><b>{{userDetails.nickname}}</b></p>
+                    <p class="txt">{{userDetails.email}}</p>
+                </div>
+            </ion-col>
+            <ion-col size="2">
+                <ion-icon class="camera-icon" name="camera" (click)="loadImageActionSheet1()">
+                    <input #userInput style="position: absolute; width: 0; height: 0; opacity: 0" type="file"
+                        (change)="readSelectedFile($event)" class="fileInput">
+                </ion-icon>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>
+                <form [formGroup]="myForm" (ngSubmit)="submit()">
+                    <img *ngFor='let url of images' [src]="url" height="150" width="200px" style="margin: 3px;">
+                </form>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <div class="caption">
+                <ion-item>
+                    <ion-textarea rows="6" cols="6" placeholder="Enter any Caption here..."></ion-textarea>
+                </ion-item>
+            </div>
+            <div class="post">
+                <ion-button type="post">Post</ion-button>
+            </div>
+        </ion-row>
+    </ion-grid>
+</ion-content>

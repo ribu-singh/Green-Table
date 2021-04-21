@@ -6,18 +6,24 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { PicturePageRoutingModule } from './picture-routing.module';
+import { PicturePage } from './upload-photo.page';
+import { RouterModule, Routes } from '@angular/router';
 
-import { PicturePage } from './picture.page';
+const routes: Routes = [
+  {
+    path: '',
+    component: PicturePage
+  }
+];
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    PicturePageRoutingModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RouterModule.forChild(routes)
   ],
   declarations: [PicturePage]
 })

@@ -9,6 +9,10 @@ const routes: Routes = [
     loadChildren: () => import('./login/login.module').then(m => m.loginPageModule)
   },
   {
+    path: 'upload',
+    loadChildren: () => import('./upload-photo/upload-photo.module').then(m => m.PicturePageModule)
+  },
+  {
     path: 'welcome',
     loadChildren: () => import('./welcome/welcome.module').then(m => m.WelcomePageModule)
   },
@@ -24,10 +28,6 @@ const routes: Routes = [
     path: '',
     redirectTo: 'home',
     pathMatch: 'full'
-  },
-  {
-    path: 'picture',
-    loadChildren: () => import('./picture/picture.module').then( m => m.PicturePageModule)
   },
 
 ];

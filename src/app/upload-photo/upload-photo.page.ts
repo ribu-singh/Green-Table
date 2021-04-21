@@ -1,31 +1,32 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/auth';
-import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
-import { GooglePlus } from '@ionic-native/google-plus/ngx';
-import { ActionSheetController, LoadingController, Platform } from '@ionic/angular';
-import { NavController } from '@ionic/angular';
+import { ActionSheetController, LoadingController, NavController, Platform } from '@ionic/angular';
 import { createEndpoint } from '../helpers/helper';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 @Component({
-  selector: 'app-welcome',
-  templateUrl: './welcome.page.html',
-  styleUrls: ['./welcome.page.scss'],
+  selector: 'app-picture',
+  templateUrl: './upload-photo.page.html',
+  styleUrls: ['./upload-photo.page.scss'],
 })
-export class WelcomePage implements OnInit {
+export class PicturePage implements OnInit {
+  images = [];
+  public userDetails: any;
 
-  public cardData = [];
-  public userdata: any;
+  userInputElement: HTMLInputElement;
   public isuploading = false;
-  public isuserData = false;
-  public isGoogleLogin = false;
   userImg: any = '';
   base64Img = '';
-  userInputElement: HTMLInputElement;
   @ViewChild('userInput') userInputViewChild: ElementRef;
+
+  myForm = new FormGroup({
+    name: new FormControl('', [Validators.required, Validators.minLength(3)]),
+    file: new FormControl('', [Validators.required]),
+    fileSource: new FormControl('', [Validators.required])
+  });
   cameraOptions: CameraOptions = {
     quality: 100,
     destinationType: this.camera.DestinationType.DATA_URL,
@@ -34,22 +35,12 @@ export class WelcomePage implements OnInit {
     allowEdit: true
   }
 
-  constructor(private google: GooglePlus,
-    public loadingController: LoadingController,
-    private fireAuth: AngularFireAuth,
-    private camera: Camera,
-    private http: HttpClient,
+  constructor(private http: HttpClient, private statusBar: StatusBar,
+    private navControl: NavController,
+    private splashScreen: SplashScreen,
+    private platform: Platform, private camera: Camera,
     private actionSheetCtrl: ActionSheetController,
-    private platform: Platform,
-    private router: Router,
-    private navControl: NavController, private statusBar: StatusBar, private splashScreen: SplashScreen) {
-    // this.cardData = [{ profilename: 'Preeti Singh', posttext: 'We have Planted 30 Tress And Cleaned 3 Roads!' },
-    // { profilename: 'Arjun Jain', posttext: 'We Are Working On An Initiative To Plant More Trees!' },
-    // { profilename: 'Payal Saxena', posttext: 'New Baby In The House' },
-    // { profilename: 'Rohan Jain', posttext: 'Plants!' },
-    // { profilename: 'Arjun Singh', posttext: 'We have Planted 30 Tress And Cleaned 3 Roads' },]
-
-
+    public loadingController: LoadingController,) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
@@ -58,6 +49,7 @@ export class WelcomePage implements OnInit {
     })
     this.userImg = 'assets/imgs/logo.png';
   }
+
   openCamera() {
     this.camera.getPicture(this.cameraOptions).then((imgData) => {
       console.log('image data =>  ', imgData);
@@ -69,32 +61,47 @@ export class WelcomePage implements OnInit {
 
   }
 
-
   ngOnInit() {
-    this.getUserDetails();
-  }
-  getUserDetails() {
-    this.isuserData = false;
-    const p = new Promise((resolve, reject) => {
-      const sendurl = (`${createEndpoint('api/home')}`);
-      this.http.get(sendurl).subscribe((done) => {
-        resolve(done);
-        this.isuserData = true;
-        this.userdata = done;
-      }, (err) => {
-        this.isuserData = false;
-        reject(err);
-      });
-    });
-    return p;
+    this.userDetails = localStorage.getItem('userDetails');
+    this.userDetails = this.userDetails ? JSON.parse(this.userDetails) : undefined;
   }
 
-  logout() {
-    this.fireAuth.signOut().then(() => {
-      this.isGoogleLogin = false;
-      window.localStorage.removeItem('userDetails');
-      this.router.navigate(['login']);
-    });
+  get f() {
+    return this.myForm.controls;
+  }
+
+  back() {
+    this.navControl.pop();
+  }
+
+  // onFileChange(event) {
+  //   if (event.target.files && event.target.files[0]) {
+  //     var filesAmount = event.target.files.length;
+  //     for (let i = 0; i < filesAmount; i++) {
+  //       var reader = new FileReader();
+
+  //       reader.onload = (event: any) => {
+  //         console.log(event.target.result);
+  //         this.images.push(event.target.result);
+
+  //         this.myForm.patchValue({
+  //           fileSource: this.images
+  //         });
+  //       }
+
+  //       reader.readAsDataURL(event.target.files[i]);
+  //     }
+  //   }
+  // }
+
+
+  submit() {
+    console.log(this.myForm.value);
+    this.http.post('http://localhost:8001/upload.php', this.myForm.value)
+      .subscribe(res => {
+        console.log(res);
+        alert('Uploaded Successfully.');
+      })
   }
 
   async loadImageActionSheet1() {
@@ -123,15 +130,27 @@ export class WelcomePage implements OnInit {
     await actionSheet.present();
   };
 
-  readSelectedFile($event) {
+  readSelectedFile(event) {
     let self = this;
-    const files = $event.target.files;
-    var reader = new FileReader();
-    reader.readAsDataURL(files[0]);
-    reader.onload = function () {
-      console.log(reader.result);//base64encoded string
-      self.uploadFile(files[0], reader.result);
-    };
+    const files = event.target.files;
+    var filesAmount = event.target.files.length;
+    for (let i = 0; i < filesAmount; i++) {
+      var reader = new FileReader();
+      reader.onload = (event: any) => {
+        console.log(event.target.result);
+        this.images.push(event.target.result);
+        self.uploadFile(files[0], reader.result);
+        this.myForm.patchValue({
+          fileSource: this.images
+        });
+      }
+      reader.readAsDataURL(event.target.files[i]);
+    }
+    // reader.onload = function () {
+    //   console.log(reader.result);//base64encoded string
+    //   self.uploadFile(files[0], reader.result);
+    // };
+
   }
 
   async uploadFile(f, base) {
@@ -204,5 +223,4 @@ export class WelcomePage implements OnInit {
   ngAfterViewInit() {
     this.userInputElement = this.userInputViewChild.nativeElement;
   };
-
 }
