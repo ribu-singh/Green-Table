@@ -25,6 +25,10 @@ const routes: Routes = [
     redirectTo: 'home',
     pathMatch: 'full'
   },
+  {
+    path: 'picture',
+    loadChildren: () => import('./picture/picture.module').then( m => m.PicturePageModule)
+  },
 
 ];
 

@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>picture</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+    <ion-grid>
+        <ion-row>
+            <div>
+                <h1 class="h1-txt">Please Select the Picture to Post</h1>
+            </div>
+            <form [formGroup]="myForm" (ngPost)="post()">
+                <div class="form-group">
+                    <div class="file-text">
+                        <ion-label for="file">File</ion-label>
+                    </div>
+                    <input 
+                        formControlName="file"
+                        id="file" 
+                        type="file" 
+                        class="form-control"
+                        multiple="" 
+                        (change)="onFileChange($event)">
+                    <div *ngIf="f.file.touched && f.file.invalid" class="alert alert-danger">
+                        <div class="file-required" *ngIf="f.file.errors.required">File is required.</div>
+                    </div>
+                </div>
+               
+                <img *ngFor='let url of images'  [src]="url" height="150" width="200px" style="margin: 3px;"> <br/>
+                <div class="caption">
+                  <ion-item>
+                    <ion-textarea rows="6" cols="6" placeholder="Enter any Caption here..."></ion-textarea>
+                  </ion-item>
+                </div>
+                <div class="post">
+                    <ion-button type="post">Post</ion-button>
+                </div>
+            </form>
+        </ion-row>
+    </ion-grid>
+</ion-content>
