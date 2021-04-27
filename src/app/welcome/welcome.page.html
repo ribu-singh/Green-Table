@@ -58,8 +58,8 @@
         </div>
       </ion-col> -->
       <div>
-        <img class="Ag-img" src=".././../assets/images/plants.jpg" *ngIf="!user.url">
-        <img class="Ag-img" src="{{user.url}}" *ngIf="user.url">
+        <img class="Ag-img" src=".././../assets/images/plants.jpg" *ngIf="!user.profilemedia">
+        <img class="Ag-img" src="{{user.profilemedia}}" *ngIf="user && user.profilemedia">
       </div>
       <div class="like-div">
         <ion-icon name="heart-sharp" color="danger" class="heart"></ion-icon>
