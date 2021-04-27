@@ -19,9 +19,13 @@ export class WelcomePage implements OnInit {
 
   public cardData = [];
   public userdata: any;
+  public commentsData: any;
   public isuploading = false;
+  public likesData: any;
   public isuserData = false;
   public isGoogleLogin = false;
+  public isShowLikes: boolean = false;
+  public isshowComments = false;
   userImg: any = '';
   base64Img = '';
   userInputElement: HTMLInputElement;
@@ -39,6 +43,7 @@ export class WelcomePage implements OnInit {
     private fireAuth: AngularFireAuth,
     private camera: Camera,
     private http: HttpClient,
+
     private actionSheetCtrl: ActionSheetController,
     private platform: Platform,
     private router: Router,
@@ -79,6 +84,16 @@ export class WelcomePage implements OnInit {
       const sendurl = (`${createEndpoint('api/home')}`);
       this.http.get(sendurl).subscribe((done) => {
         resolve(done);
+        for (let i = 0, lik; lik = done[i]; i++) {
+          if (lik.likes) {
+            this.likesData = JSON.parse(lik.likes);
+            lik['likesData'] = this.likesData;
+          }
+          if (lik.comments) {
+            this.commentsData = JSON.parse(lik.comments);
+            lik['commentsData'] = this.commentsData;
+          }
+        }
         this.isuserData = true;
         this.userdata = done;
       }, (err) => {
@@ -200,6 +215,16 @@ export class WelcomePage implements OnInit {
     return new Blob(byteArrays, { type: info.mime });
   }
 
+  showLikes() {
+    this.isshowComments = false;
+    this.isShowLikes = !this.isShowLikes;
+
+  }
+
+  showComments() {
+    this.isShowLikes = false;
+    this.isshowComments = !this.isshowComments;
+  }
 
   ngAfterViewInit() {
     this.userInputElement = this.userInputViewChild.nativeElement;

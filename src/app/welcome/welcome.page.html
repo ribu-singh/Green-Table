@@ -64,16 +64,35 @@
       <div class="like-div">
         <ion-icon name="heart-sharp" color="danger" class="heart"></ion-icon>
         <!-- <ion-label>13k</ion-label> -->
-        <ion-label *ngIf="user.likes" class="heart-count">{{user.likes}}</ion-label>
-        <ion-label *ngIf="!user.likes" class="heart-count">13K</ion-label>
+        <ion-label *ngIf="user.likesData" class="heart-count" (click)="showLikes()">{{user.likesData.length}}
+        </ion-label>
+        <ion-label *ngIf="!user.likesData" class="heart-count" (click)="showLikes()"> 0</ion-label>
         &nbsp;
         <ion-icon name="chatbubble-ellipses-sharp" color="primary" class="comment"></ion-icon>
-        <ion-label *ngIf="user.comments">{{user.comments}}</ion-label>
-        <ion-label *ngIf="!user.comments">3K</ion-label>
+        <ion-label *ngIf="user.commentsData" (click)="showComments()">{{user.commentsData.length}}</ion-label>
+        <ion-label *ngIf="!user.commentsData" (click)="showComments()"> 0</ion-label>
         &nbsp;
         <ion-icon name="arrow-redo-sharp" class="share"></ion-icon>
         <ion-label *ngIf="user.share">{{user.share}}</ion-label>
         <ion-label *ngIf="!user.share">32</ion-label>
+      </div>
+      <div class="like-div">
+        <div *ngIf="isShowLikes && user.likesData">
+          <div *ngFor="let lik of user.likesData">
+            <p>{{lik.ownerid}}</p>
+          </div>
+        </div>
+        <div *ngIf="isShowLikes && !user.likesData ">
+          <h2>No likes</h2>
+        </div>
+      </div>
+      <div class="like-div">
+        <div *ngIf="isshowComments && user.commentsData">
+          <div *ngFor="let com of user.commentsData">
+            <p>{{com.commentText}}</p>
+          </div>
+
+        </div>
       </div>
       <div class="line"></div>
     </ion-row>
@@ -97,7 +116,7 @@
       </ion-row>
     </div>
   </ion-grid>
-  <ion-fab horizontal="end" vertical="bottom" slot="fixed"  routerLink="/upload">
+  <ion-fab horizontal="end" vertical="bottom" slot="fixed" routerLink="/upload">
     <input #userInput style="position: absolute; width: 0; height: 0; opacity: 0" type="file"
       (change)="readSelectedFile($event)" class="fileInput">
     <ion-fab-button color="success">
