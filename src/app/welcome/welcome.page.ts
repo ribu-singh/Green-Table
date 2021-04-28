@@ -22,6 +22,8 @@ export class WelcomePage implements OnInit {
   public commentsData: any;
   public isuploading = false;
   public likesData: any;
+  public userDetails: any;
+  public id: number;
   public isuserData = false;
   public isGoogleLogin = false;
   public isShowLikes: boolean = false;
@@ -76,7 +78,11 @@ export class WelcomePage implements OnInit {
 
 
   ngOnInit() {
+    this.userDetails = localStorage.getItem('userDetails');
+    this.userDetails = this.userDetails ? JSON.parse(this.userDetails) : undefined;
+    this.id = this.userDetails.userDetails.user.id;
     this.getUserDetails();
+
   }
   getUserDetails() {
     this.isuserData = false;
@@ -84,11 +90,14 @@ export class WelcomePage implements OnInit {
       const sendurl = (`${createEndpoint('api/home')}`);
       this.http.get(sendurl).subscribe((done) => {
         resolve(done);
+        done['userid'] = this.id;
         for (let i = 0, lik; lik = done[i]; i++) {
-          if (lik.likes) {
+          if (lik.likes === "[]") {
+          } else {
             this.likesData = JSON.parse(lik.likes);
             lik['likesData'] = this.likesData;
           }
+
           if (lik.comments) {
             this.commentsData = JSON.parse(lik.comments);
             lik['commentsData'] = this.commentsData;
@@ -224,6 +233,20 @@ export class WelcomePage implements OnInit {
   showComments() {
     this.isShowLikes = false;
     this.isshowComments = !this.isshowComments;
+  }
+
+  addLike(id) {
+    const body = {
+      postid: id,
+    };
+    const p = new Promise((resolve, reject) => {
+      this.http.post(`${createEndpoint('api/like')}`, body).subscribe((res: any) => {
+        resolve(res);
+        this.getUserDetails();
+      }, (err) => {
+        reject(err);
+      });
+    });
   }
 
   ngAfterViewInit() {

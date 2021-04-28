@@ -62,7 +62,10 @@
         <img class="Ag-img" src="{{user.profilemedia}}" *ngIf="user && user.profilemedia">
       </div>
       <div class="like-div">
-        <ion-icon name="heart-sharp" color="danger" class="heart"></ion-icon>
+        <ion-icon name="heart-sharp" color="danger" class="heart"
+          *ngIf="user && user.likesData && user.likesData.ownerid === user.userid" (click)="addLike(user.id)">
+        </ion-icon>
+        <ion-icon name="heart-outline" class="heart" *ngIf="!user.likesData" (click)="addLike(user.id)"></ion-icon>
         <!-- <ion-label>13k</ion-label> -->
         <ion-label *ngIf="user.likesData" class="heart-count" (click)="showLikes()">{{user.likesData.length}}
         </ion-label>
@@ -78,13 +81,17 @@
       </div>
       <div class="like-div">
         <div *ngIf="isShowLikes && user.likesData">
-          <div *ngFor="let lik of user.likesData">
-            <p>{{lik.ownerid}}</p>
+          <div *ngFor="let lik of user.likesData" class="like-box">
+            <div style="display: flex;">
+              <img class="like-img" src="{{lik.profilemedia}}" *ngIf="lik && lik.profilemedia">
+              <p *ngIf="lik && lik.displayName" class="like-text">{{lik.displayName}} Liked this Post</p>
+            </div>
           </div>
         </div>
-        <div *ngIf="isShowLikes && !user.likesData ">
+        <!-- <div *ngIf="isShowLikes && !user.likesData ">
+          <hr>
           <h2>No likes</h2>
-        </div>
+        </div> -->
       </div>
       <div class="like-div">
         <div *ngIf="isshowComments && user.commentsData">

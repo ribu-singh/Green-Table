@@ -126,6 +126,21 @@
 .heart-count {
     --padding-top: 9px;
 }
+.like-box {
+    border: 1px solid aliceblue;
+    border-radius: 6px;
+    padding: 2%;
+    box-shadow: 2px 4px #888888;
+}
+.like-img {
+    border-radius: 50px;
+    width: 10%;
+    height: 10%;
+}
+.like-text {
+    margin: 2%;
+    padding: 3px;
+}
 .like-div {
     position: relative;
     width: 100%;
