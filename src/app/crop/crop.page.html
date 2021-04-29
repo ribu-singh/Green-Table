@@ -1,0 +1,96 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>crop</ion-title>
+    <ion-buttons slot="end">
+      <ion-button fill="clear" color="danger" (click)="clear()">
+        <ion-icon name="close" slot="icon-only"></ion-icon>
+      </ion-button>
+      <ion-button fill="clear" color="secondary" (click)="save()">
+        <ion-icon name="checkmark" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-button expand="full" (click)="captureImage()">
+    Capture Image
+  </ion-button>
+
+  <image-cropper
+    [imageBase64]="myImage"
+    [maintainAspectRatio]="true"
+    [aspectRatio]= "4 / 3"
+    format="png"
+    (imageCropped) = "imageCropped($event)"
+    outputType="base64">
+  </image-cropper>
+
+  <ion-row *ngIf="myImage">
+    <!-- <ion-col size="3">
+      <ion-button fill="outline" (click)="rotateLeft()">
+        <ion-icon name="refresh" slot="start"></ion-icon>Left
+      </ion-button>
+    </ion-col> -->
+    <!-- <ion-col size="3">
+      <ion-button fill="outline" (click)="rotateRight()">
+        <ion-icon name="refresh" slot="start"></ion-icon>Right
+      </ion-button>
+    </ion-col>
+    <ion-col size="3">
+      <ion-button fill="outline" (click)="flipHorizontal()">
+        Flip X
+      </ion-button>
+    </ion-col>
+    <ion-col size="3">
+      <ion-button fill="outline" (click)="flipVertical()">
+        Flip Y
+      </ion-button>
+    </ion-col> -->
+
+    <ion-col size="3">
+      <ion-button fill="clear" (click)="move(0, -10)">
+        <ion-icon name="arrow-round-up" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-col>
+    <ion-col size="3">
+      <ion-button fill="clear" (click)="move(0, 10)">
+        <ion-icon name="arrow-round-down" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-col>
+    <ion-col size="3">
+      <ion-button fill="clear" (click)="move(-10, 0)">
+        <ion-icon name="arrow-round-back" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-col>
+    <ion-col size="3">
+      <ion-button fill="clear" (click)="move(10, 0)">
+        <ion-icon name="arrow-round-forward" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-col>
+
+  </ion-row>
+
+  <!-- <img [src]="myImage"> -->
+  <ion-card *ngIf="croppedImage">
+    <ion-card-header>
+      <ion-card-title>Cropped Image</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <img [src]="croppedImage"/>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col size="6" *ngFor="let photo of photos; let id = index">
+        <ion-card class="block">
+          <!-- <ion-icon  name="trash" class="deleteIcon" (click)="deletePhoto(id)"></ion-icon> -->
+          <!-- <img src=".././../assets/images/preeti.jpg"> -->
+          <img [src]="photo" *ngIf="photo" />
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>
