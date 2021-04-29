@@ -8,6 +8,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { PicturePage } from './upload-photo.page';
 import { RouterModule, Routes } from '@angular/router';
+import { ImageCropperModule } from 'ngx-image-cropper';
 
 const routes: Routes = [
   {
@@ -23,6 +24,7 @@ const routes: Routes = [
     IonicModule,
     HttpClientModule,
     ReactiveFormsModule,
+    ImageCropperModule,
     RouterModule.forChild(routes)
   ],
   declarations: [PicturePage]

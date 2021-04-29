@@ -1,14 +1,22 @@
-<ion-header collapse="condense">
+<ion-header>
     <ion-toolbar>
         <div>
             <ion-icon name="arrow-back-outline" class="back-icon" (click)="back()"></ion-icon>
-            <ion-buttons slot="end" class="menu-icon">
+            <!-- <ion-buttons slot="end" class="menu-icon">
                 <ion-button>
                     Done
                 </ion-button>
-            </ion-buttons>
+            </ion-buttons> -->
             <!-- <ion-icon name="ellipsis-vertical" class="menu-icon"></ion-icon> -->
         </div>
+        <ion-buttons slot="end">
+          <ion-button fill="clear" color="danger" (click)="clear()">
+            <ion-icon name="close" slot="icon-only"></ion-icon>
+          </ion-button>
+          <ion-button fill="clear" color="secondary" (click)="save()">
+            <ion-icon name="checkmark" slot="icon-only"></ion-icon>
+          </ion-button>
+        </ion-buttons>
     </ion-toolbar>
 </ion-header>
 
@@ -25,16 +33,95 @@
                 </div>
             </ion-col>
             <ion-col size="2">
-                <ion-icon class="camera-icon" name="camera" (click)="loadImageActionSheet1()">
+                <ion-icon class="camera-icon" name="camera" (click)="captureImage()">
                     <input #userInput style="position: absolute; width: 0; height: 0; opacity: 0" type="file"
                         (change)="readSelectedFile($event)" class="fileInput">
                 </ion-icon>
             </ion-col>
+            <!-- <ion-button expand="full" (click)="captureImage()">
+                Capture Image
+              </ion-button> -->
+            
+              <image-cropper
+                [imageBase64]="myImage"
+                [maintainAspectRatio]="true"
+                [aspectRatio]= "4 / 3"
+                format="png"
+                (imageCropped) = "imageCropped($event)"
+                outputType="base64">
+              </image-cropper>
+            
+              <ion-row *ngIf="myImage">
+                <!-- <ion-col size="3">
+                  <ion-button fill="outline" (click)="rotateLeft()">
+                    <ion-icon name="refresh" slot="start"></ion-icon>Left
+                  </ion-button>
+                </ion-col>
+                <ion-col size="3">
+                  <ion-button fill="outline" (click)="rotateRight()">
+                    <ion-icon name="refresh" slot="start"></ion-icon>Right
+                  </ion-button>
+                </ion-col>
+                <ion-col size="3">
+                  <ion-button fill="outline" (click)="flipHorizontal()">
+                    Flip X
+                  </ion-button>
+                </ion-col>
+                <ion-col size="3">
+                  <ion-button fill="outline" (click)="flipVertical()">
+                    Flip Y
+                  </ion-button>
+                </ion-col> -->
+            
+                <ion-col size="3">
+                  <ion-button fill="clear" (click)="move(0, -10)">
+                    <ion-icon name="arrow-round-up" slot="icon-only"></ion-icon>
+                  </ion-button>
+                </ion-col>
+                <ion-col size="3">
+                  <ion-button fill="clear" (click)="move(0, 10)">
+                    <ion-icon name="arrow-round-down" slot="icon-only"></ion-icon>
+                  </ion-button>
+                </ion-col>
+                <ion-col size="3">
+                  <ion-button fill="clear" (click)="move(-10, 0)">
+                    <ion-icon name="arrow-round-back" slot="icon-only"></ion-icon>
+                  </ion-button>
+                </ion-col>
+                <ion-col size="3">
+                  <ion-button fill="clear" (click)="move(10, 0)">
+                    <ion-icon name="arrow-round-forward" slot="icon-only"></ion-icon>
+                  </ion-button>
+                </ion-col>
+            
+              </ion-row>
+            
+              <!-- <img [src]="myImage"> -->
+              <ion-card *ngIf="croppedImage">
+                <ion-card-header>
+                  <ion-card-title>Cropped Image</ion-card-title>
+                </ion-card-header>
+                <ion-card-content>
+                  <img [src]="croppedImage"/>
+                </ion-card-content>
+              </ion-card>
         </ion-row>
+
+        <ion-grid>
+          <ion-row>
+            <ion-col size="6" *ngFor="let photo of photos; let id = index">
+              <ion-card class="block">
+                <!-- <ion-icon  name="trash" class="deleteIcon" (click)="deletePhoto(id)"></ion-icon> -->
+                <!-- <img src=".././../assets/images/preeti.jpg"> -->
+                <img [src]="photo" *ngIf="photo" />
+              </ion-card>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
         <ion-row>
             <ion-col>
                 <form [formGroup]="myForm" (ngSubmit)="submit()">
-                    <img *ngFor='let url of images' [src]="url" height="150" width="200px" style="margin: 3px;">
+                    <img *ngFor='let url of images' [src]="url" height="100px" width="140px" style="margin: 3px;">
                 </form>
             </ion-col>
         </ion-row>

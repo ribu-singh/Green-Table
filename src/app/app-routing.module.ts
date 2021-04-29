@@ -28,7 +28,12 @@ const routes: Routes = [
     path: '',
     redirectTo: 'home',
     pathMatch: 'full'
+  },  {
+    path: 'crop',
+    loadChildren: () => import('./crop/crop.module').then( m => m.CropPageModule)
   },
+
+
 
 ];
 

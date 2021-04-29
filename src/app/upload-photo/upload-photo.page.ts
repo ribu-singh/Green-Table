@@ -6,6 +6,9 @@ import { ActionSheetController, LoadingController, NavController, Platform } fro
 import { createEndpoint } from '../helpers/helper';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { Observable } from 'rxjs';
+import { ImageCroppedEvent, ImageCropperComponent } from 'ngx-image-cropper';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-picture',
@@ -15,6 +18,13 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 export class PicturePage implements OnInit {
   images = [];
   public userDetails: any;
+
+  myImage = null;
+  croppedImage = null;
+  @ViewChild(ImageCropperComponent, { static: false}) angularCropper: ImageCropperComponent;
+  public photos : any;
+  public base64Image : string;
+  alertCtrl: any;
 
   userInputElement: HTMLInputElement;
   public isuploading = false;
@@ -40,7 +50,8 @@ export class PicturePage implements OnInit {
     private splashScreen: SplashScreen,
     private platform: Platform, private camera: Camera,
     private actionSheetCtrl: ActionSheetController,
-    public loadingController: LoadingController,) {
+    public loadingController: LoadingController,
+    alertCtrl : AlertController,) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
@@ -48,6 +59,11 @@ export class PicturePage implements OnInit {
       splashScreen.hide();
     })
     this.userImg = 'assets/imgs/logo.png';
+  }
+
+  imageCropped(event: ImageCroppedEvent) {
+    this.croppedImage = event.base64;
+
   }
 
   openCamera() {
@@ -64,6 +80,65 @@ export class PicturePage implements OnInit {
   ngOnInit() {
     this.userDetails = localStorage.getItem('userDetails');
     this.userDetails = this.userDetails ? JSON.parse(this.userDetails) : undefined;
+    this.photos = [];
+  }
+
+  captureImage(){
+    // this.convertFileToDataURLviaFileReader(`assets/images/plants.jpg`).subscribe(
+    //   base64 => {
+    //     this.myImage = base64;
+    //   }
+    // );
+
+    const option: CameraOptions = {
+      quality: 100,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE,
+      sourceType: this.camera.PictureSourceType.CAMERA
+    }
+
+    this.camera.getPicture(option).then((imageData) => {
+      this.myImage = 'data:image/jpeg;base64,' + imageData;
+      this.photos.push(this.croppedImage);
+        this.photos.reverse();
+      }, (err) => {
+        console.log(err);
+    });
+  }
+
+  convertFileToDataURLviaFileReader(url: string) {
+    return Observable.create(observer => {
+      let xhr: XMLHttpRequest = new XMLHttpRequest();
+      xhr.onload = function() { 
+        let reader: FileReader = new FileReader();
+        reader.onloadend = function() {
+          observer.next(reader.result);
+          observer.complete();
+        }
+        reader.readAsDataURL(xhr.response);
+      };
+      xhr.open('GET', url);
+      xhr.responseType = 'blob';
+      xhr.send();
+    });
+  }
+
+  clear() {
+    this.angularCropper.imageBase64 = null;
+    this.myImage = null;
+    this.croppedImage = null;
+  }
+
+  save() {
+    this.angularCropper.crop();
+  }
+
+  move(x, y) {
+    this.angularCropper.cropper.x1 += x;
+    this.angularCropper.cropper.x2 += x;
+    this.angularCropper.cropper.y1 += y;
+    this.angularCropper.cropper.y2 += y;
   }
 
   get f() {
@@ -105,7 +180,6 @@ export class PicturePage implements OnInit {
   }
 
   async loadImageActionSheet1() {
-
     const actionSheet = await this.actionSheetCtrl.create({
       header: 'Select Image Source',
       buttons: [{
@@ -218,8 +292,7 @@ export class PicturePage implements OnInit {
 
     return new Blob(byteArrays, { type: info.mime });
   }
-
-
+  
   ngAfterViewInit() {
     this.userInputElement = this.userInputViewChild.nativeElement;
   };

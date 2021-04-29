@@ -18,7 +18,6 @@ import { Camera } from '@ionic-native/camera/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 
-
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],

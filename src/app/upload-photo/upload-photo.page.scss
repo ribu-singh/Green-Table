@@ -15,7 +15,8 @@
     float: right;
 }
 .camera-icon{
-    zoom: 2;
+    zoom: 3;
+    margin-top: 7px;
 }
 .pro-circle {
     border-radius: 45px;
@@ -32,10 +33,14 @@
 }
 .caption {
     width: 100%;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.13);
+    // box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.13);
     margin-left: 10px;
 }
 .post {
     padding: 19px;
     text-align: center;
+}
+.txt{
+    margin: 6%;
+    margin-left: 0px;
 }
