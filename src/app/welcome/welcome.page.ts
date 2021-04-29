@@ -21,6 +21,7 @@ export class WelcomePage implements OnInit {
   public userdata: any;
   public commentsData: any;
   public isuploading = false;
+  public isSelfLike = false;
   public likesData: any;
   public userDetails: any;
   public id: number;
@@ -90,17 +91,37 @@ export class WelcomePage implements OnInit {
       const sendurl = (`${createEndpoint('api/home')}`);
       this.http.get(sendurl).subscribe((done) => {
         resolve(done);
-        done['userid'] = this.id;
-        for (let i = 0, lik; lik = done[i]; i++) {
-          if (lik.likes === "[]") {
-          } else {
-            this.likesData = JSON.parse(lik.likes);
-            lik['likesData'] = this.likesData;
-          }
+        // done['userid'] = this.id;
+        // for (let i = 0, lik; lik = done[i]; i++) {
+        //   if (lik.likes === "[]") {
+        //   } else {
+        //     this.likesData = JSON.parse(lik.likes);
+        //     for (let i = 0, like; like = this.likesData[i]; i++) {
+        //       if (like && like.ownerid && like.ownerid === this.id) {
+        //         this.isSelfLike = true
+        //       }
+        //     }
+        //     lik['likesData'] = this.likesData;
+        //   }
 
-          if (lik.comments) {
-            this.commentsData = JSON.parse(lik.comments);
-            lik['commentsData'] = this.commentsData;
+        //   if (lik.comments) {
+        //     this.commentsData = JSON.parse(lik.comments);
+        //     lik['commentsData'] = this.commentsData;
+        //   }
+        // }
+
+        for (let i = 0, d; d = done[i]; i++) {
+          d['isSelfLike'] = false;
+          if (d && d.likes) {
+            let lk = JSON.parse(d.likes);
+            if (lk && lk.length > 0) {
+              for (let j = 0, l; l = lk[j]; j++) {
+                if (l && l.ownerid && l.ownerid === this.id) {
+                  d.isSelfLike = true;
+                }
+              }
+              d['likesData'] = lk;
+            }
           }
         }
         this.isuserData = true;

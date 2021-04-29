@@ -56,6 +56,7 @@
         <div>
           <p class="crdname"><b>{{user.profilename}}</b></p>
         </div>
+
       </ion-col> -->
       <div>
         <img class="Ag-img" src=".././../assets/images/plants.jpg" *ngIf="!user.profilemedia">
@@ -63,9 +64,9 @@
       </div>
       <div class="like-div">
         <ion-icon name="heart-sharp" color="danger" class="heart"
-          *ngIf="user && user.likesData && user.likesData.ownerid === user.userid" (click)="addLike(user.id)">
+          *ngIf="user && user.isSelfLike" (click)="addLike(user.id)">
         </ion-icon>
-        <ion-icon name="heart-outline" class="heart" *ngIf="!user.likesData" (click)="addLike(user.id)"></ion-icon>
+        <ion-icon name="heart-outline" class="heart" *ngIf="!user.isSelfLike" (click)="addLike(user.id)"></ion-icon>
         <!-- <ion-label>13k</ion-label> -->
         <ion-label *ngIf="user.likesData" class="heart-count" (click)="showLikes()">{{user.likesData.length}}
         </ion-label>
