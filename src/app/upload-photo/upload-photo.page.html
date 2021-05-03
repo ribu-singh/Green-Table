@@ -52,27 +52,6 @@
               </image-cropper>
             
               <ion-row *ngIf="myImage">
-                <!-- <ion-col size="3">
-                  <ion-button fill="outline" (click)="rotateLeft()">
-                    <ion-icon name="refresh" slot="start"></ion-icon>Left
-                  </ion-button>
-                </ion-col>
-                <ion-col size="3">
-                  <ion-button fill="outline" (click)="rotateRight()">
-                    <ion-icon name="refresh" slot="start"></ion-icon>Right
-                  </ion-button>
-                </ion-col>
-                <ion-col size="3">
-                  <ion-button fill="outline" (click)="flipHorizontal()">
-                    Flip X
-                  </ion-button>
-                </ion-col>
-                <ion-col size="3">
-                  <ion-button fill="outline" (click)="flipVertical()">
-                    Flip Y
-                  </ion-button>
-                </ion-col> -->
-            
                 <ion-col size="3">
                   <ion-button fill="clear" (click)="move(0, -10)">
                     <ion-icon name="arrow-round-up" slot="icon-only"></ion-icon>
@@ -97,13 +76,13 @@
               </ion-row>
             
               <!-- <img [src]="myImage"> -->
-              <ion-card *ngIf="croppedImage">
-                <ion-card-header>
+              <ion-card class="cardImg" *ngIf="croppedImage">
+                <!-- <ion-card-header>
                   <ion-card-title>Cropped Image</ion-card-title>
                 </ion-card-header>
                 <ion-card-content>
                   <img [src]="croppedImage"/>
-                </ion-card-content>
+                </ion-card-content> -->
               </ion-card>
         </ion-row>
 
@@ -111,7 +90,7 @@
           <ion-row>
             <ion-col size="6" *ngFor="let photo of photos; let id = index">
               <ion-card class="block">
-                <!-- <ion-icon  name="trash" class="deleteIcon" (click)="deletePhoto(id)"></ion-icon> -->
+                <ion-icon  name="trash" class="deleteIcon" (click)="deletePhoto(id)"></ion-icon>
                 <!-- <img src=".././../assets/images/preeti.jpg"> -->
                 <img [src]="photo" *ngIf="photo" />
               </ion-card>

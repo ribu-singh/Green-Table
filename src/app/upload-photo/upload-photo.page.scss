@@ -44,3 +44,21 @@
     margin: 6%;
     margin-left: 0px;
 }
+.block {
+    position: relative;
+    width: 100%;
+    
+}
+.deleteIcon {
+    position: absolute !important;
+    color: #ffffff !important;
+    margin-left: 147px;
+    margin-top: 4px;
+}
+.deleteIcon:before {
+    font-size: 30px !important;
+}
+.cardImg{
+    width: 100%;
+}
+    

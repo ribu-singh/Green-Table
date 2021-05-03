@@ -21,10 +21,9 @@ export class PicturePage implements OnInit {
 
   myImage = null;
   croppedImage = null;
-  @ViewChild(ImageCropperComponent, { static: false}) angularCropper: ImageCropperComponent;
-  public photos : any;
-  public base64Image : string;
-  alertCtrl: any;
+  @ViewChild(ImageCropperComponent, { static: false }) angularCropper: ImageCropperComponent;
+  public photos: any;
+  public base64Image: string;
 
   userInputElement: HTMLInputElement;
   public isuploading = false;
@@ -51,7 +50,7 @@ export class PicturePage implements OnInit {
     private platform: Platform, private camera: Camera,
     private actionSheetCtrl: ActionSheetController,
     public loadingController: LoadingController,
-    alertCtrl : AlertController,) {
+    public alertController: AlertController) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
@@ -83,7 +82,7 @@ export class PicturePage implements OnInit {
     this.photos = [];
   }
 
-  captureImage(){
+  captureImage() {
     // this.convertFileToDataURLviaFileReader(`assets/images/plants.jpg`).subscribe(
     //   base64 => {
     //     this.myImage = base64;
@@ -91,7 +90,7 @@ export class PicturePage implements OnInit {
     // );
 
     const option: CameraOptions = {
-      quality: 100,
+      quality: 55,
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
@@ -101,18 +100,18 @@ export class PicturePage implements OnInit {
     this.camera.getPicture(option).then((imageData) => {
       this.myImage = 'data:image/jpeg;base64,' + imageData;
       this.photos.push(this.croppedImage);
-        this.photos.reverse();
-      }, (err) => {
-        console.log(err);
+      this.photos.reverse();
+    }, (err) => {
+      console.log(err);
     });
   }
 
   convertFileToDataURLviaFileReader(url: string) {
     return Observable.create(observer => {
       let xhr: XMLHttpRequest = new XMLHttpRequest();
-      xhr.onload = function() { 
+      xhr.onload = function () {
         let reader: FileReader = new FileReader();
-        reader.onloadend = function() {
+        reader.onloadend = function () {
           observer.next(reader.result);
           observer.complete();
         }
@@ -139,6 +138,29 @@ export class PicturePage implements OnInit {
     this.angularCropper.cropper.x2 += x;
     this.angularCropper.cropper.y1 += y;
     this.angularCropper.cropper.y2 += y;
+  }
+
+  async deletePhoto(index) {
+    const alert = await this.alertController.create({
+      header: 'Sure you want to delete this photo?',
+      message: '',
+      buttons: [
+        {
+          text: 'No',
+          handler: () => {
+            console.log('Disagree clicked');
+          }
+        }, {
+          text: 'Yes',
+          handler: () => {
+            console.log('Agree clicked');
+            this.photos.splice(index, 1);
+          }
+        }
+      ]
+    });
+
+    await alert.present();
   }
 
   get f() {
@@ -292,7 +314,7 @@ export class PicturePage implements OnInit {
 
     return new Blob(byteArrays, { type: info.mime });
   }
-  
+
   ngAfterViewInit() {
     this.userInputElement = this.userInputViewChild.nativeElement;
   };
