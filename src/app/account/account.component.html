@@ -69,13 +69,13 @@
           </div>
           <div>
             <p class="coin-text">Coins Added in Green Wallet</p>
-            <p class="coin-time">{{coin.time}}</p>
+            <!-- <p class="coin-time" *ngIf="coin && coin.time">{{coin.time | date: 'dd/MM/yyyy'}}</p> -->
           </div>
         </div>
       </ion-col>
       <ion-col size="3">
         <div>
-          <p class="crd-coin-txt">+{{coin.coinCredited}}</p>
+          <p class="crd-coin-txt" *ngIf="coin && coin.coins">+{{coin.coins}}</p>
         </div>
       </ion-col>
     </ion-row>
