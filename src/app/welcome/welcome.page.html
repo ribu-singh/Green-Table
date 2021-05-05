@@ -41,8 +41,8 @@
       <ion-col size="9">
         <div class="coin-blk">
           <ion-avatar slot="start" class="images">
-            <img src=".././../assets/images/preeti.jpg">
-            <!-- <img src="{{user.profilemedia}}"> -->
+            <img *ngIf="user && !user.profilemedia" src=".././../assets/images/preeti.jpg">
+            <img *ngIf="user && user.profilemedia" src="{{user.profilemedia}}">
             <div>
               <p class="crdname"><b>{{user.profilename}}</b></p>
             </div>
@@ -59,18 +59,19 @@
 
       </ion-col> -->
       <div>
-        <img class="Ag-img" src=".././../assets/images/plants.jpg" *ngIf="!user.profilemedia">
-        <img class="Ag-img" src="{{user.profilemedia}}" *ngIf="user && user.profilemedia">
+        <img class="Ag-img" src=".././../assets/images/plants.jpg" *ngIf="user && !user.url">
+        <img class="Ag-img" [src]="mediaUrl(user.url)" *ngIf="user && user.url">
       </div>
+      <!-- <app-popover-content-page *ngIf="user.like" [postLikeData]="user.likesData"></app-popover-content-page> -->
       <div class="like-div">
-        <ion-icon name="heart-sharp" color="danger" class="heart"
-          *ngIf="user && user.isSelfLike" (click)="addLike(user.id)">
+        <ion-icon name="heart-sharp" color="danger" class="heart" *ngIf="user && user.isSelfLike"
+          (click)="addLike(user.id)">
         </ion-icon>
         <ion-icon name="heart-outline" class="heart" *ngIf="!user.isSelfLike" (click)="addLike(user.id)"></ion-icon>
         <!-- <ion-label>13k</ion-label> -->
-        <ion-label *ngIf="user.likesData" class="heart-count" (click)="showLikes()">{{user.likesData.length}}
+        <ion-label *ngIf="user.likesData" class="heart-count" (click)="showLikess($event,user)">{{user.likesData.length}}
         </ion-label>
-        <ion-label *ngIf="!user.likesData" class="heart-count" (click)="showLikes()"> 0</ion-label>
+        <ion-label *ngIf="!user.likesData" class="heart-count" (click)="showLikes($event)"> 0</ion-label>
         &nbsp;
         <ion-icon name="chatbubble-ellipses-sharp" color="primary" class="comment"></ion-icon>
         <ion-label *ngIf="user.commentsData" (click)="showComments()">{{user.commentsData.length}}</ion-label>
@@ -81,11 +82,11 @@
         <ion-label *ngIf="!user.share">32</ion-label>
       </div>
       <div class="like-div">
-        <div *ngIf="isShowLikes && user.likesData">
+        <div *ngIf="!isshowComments" >
           <div *ngFor="let lik of user.likesData" class="like-box">
             <div style="display: flex;">
-              <img class="like-img" src="{{lik.profilemedia}}" *ngIf="lik && lik.profilemedia">
-              <p *ngIf="lik && lik.displayName" class="like-text">{{lik.displayName}} Liked this Post</p>
+              <img class="like-img" src="{{lik.profileMedia}}" *ngIf="lik && lik.profileMedia">
+              <p *ngIf="lik && lik.profileName" class="like-text">{{lik.profileName}} Liked this Post</p>
             </div>
           </div>
         </div>
@@ -97,7 +98,15 @@
       <div class="like-div">
         <div *ngIf="isshowComments && user.commentsData">
           <div *ngFor="let com of user.commentsData">
-            <p>{{com.commentText}}</p>
+            <div class="like-box" style="display: flex;">
+              <img class="like-img" src="{{com.ownermedia}}" *ngIf="com && com.ownermedia">
+              <div>
+                <p class="comm-text">{{com.ownername}}</p>
+                <div class="comment-box">
+                  <p style="padding: 10px">{{com.commentText}}</p>
+                </div>
+              </div>
+            </div>
           </div>
 
         </div>

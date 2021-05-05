@@ -1,14 +1,17 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, Output, ViewChild } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { GooglePlus } from '@ionic-native/google-plus/ngx';
-import { ActionSheetController, LoadingController, Platform } from '@ionic/angular';
+import { ActionSheetController, LoadingController, Platform, PopoverController } from '@ionic/angular';
 import { NavController } from '@ionic/angular';
 import { createEndpoint } from '../helpers/helper';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { PopoverContentPageComponent } from '../components/popover-content-page/popover-content-page.component';
+// import * as EventEmitter from 'node:events';
+import * as appGlobals from '../app.globals';
 
 @Component({
   selector: 'app-welcome',
@@ -23,9 +26,12 @@ export class WelcomePage implements OnInit {
   public isuploading = false;
   public isSelfLike = false;
   public likesData: any;
+  public postLikeData: any;
   public userDetails: any;
   public id: number;
   public isuserData = false;
+  public imgUrl = appGlobals.imgUrl;
+
   public isGoogleLogin = false;
   public isShowLikes: boolean = false;
   public isshowComments = false;
@@ -41,6 +47,12 @@ export class WelcomePage implements OnInit {
     allowEdit: true
   }
 
+
+
+  // addNewItem(value: string) {
+  //   this.newItemEvent.emit(this.postLikeData);
+  // }
+
   constructor(private google: GooglePlus,
     public loadingController: LoadingController,
     private fireAuth: AngularFireAuth,
@@ -50,7 +62,7 @@ export class WelcomePage implements OnInit {
     private actionSheetCtrl: ActionSheetController,
     private platform: Platform,
     private router: Router,
-    private navControl: NavController, private statusBar: StatusBar, private splashScreen: SplashScreen) {
+    private navControl: NavController, private statusBar: StatusBar, private popover: PopoverController, private splashScreen: SplashScreen) {
     // this.cardData = [{ profilename: 'Preeti Singh', posttext: 'We have Planted 30 Tress And Cleaned 3 Roads!' },
     // { profilename: 'Arjun Jain', posttext: 'We Are Working On An Initiative To Plant More Trees!' },
     // { profilename: 'Payal Saxena', posttext: 'New Baby In The House' },
@@ -84,6 +96,7 @@ export class WelcomePage implements OnInit {
     this.id = this.userDetails.userDetails.user.id;
     this.getUserDetails();
 
+
   }
   getUserDetails() {
     this.isuserData = false;
@@ -91,37 +104,27 @@ export class WelcomePage implements OnInit {
       const sendurl = (`${createEndpoint('api/home')}`);
       this.http.get(sendurl).subscribe((done) => {
         resolve(done);
-        // done['userid'] = this.id;
-        // for (let i = 0, lik; lik = done[i]; i++) {
-        //   if (lik.likes === "[]") {
-        //   } else {
-        //     this.likesData = JSON.parse(lik.likes);
-        //     for (let i = 0, like; like = this.likesData[i]; i++) {
-        //       if (like && like.ownerid && like.ownerid === this.id) {
-        //         this.isSelfLike = true
-        //       }
-        //     }
-        //     lik['likesData'] = this.likesData;
-        //   }
-
-        //   if (lik.comments) {
-        //     this.commentsData = JSON.parse(lik.comments);
-        //     lik['commentsData'] = this.commentsData;
-        //   }
-        // }
-
         for (let i = 0, d; d = done[i]; i++) {
           d['isSelfLike'] = false;
-          if (d && d.likes) {
+          d['like'] = false;
+          if (d && d.likes === "[]") {
+          } else {
             let lk = JSON.parse(d.likes);
             if (lk && lk.length > 0) {
               for (let j = 0, l; l = lk[j]; j++) {
-                if (l && l.ownerid && l.ownerid === this.id) {
+                if (l && l.profileId && l.profileId === this.id) {
                   d.isSelfLike = true;
+                  // l.profileMedia
                 }
               }
               d['likesData'] = lk;
+              this.postLikeData = lk;
+              localStorage.setItem(appGlobals.localStorageKeys.likeData, JSON.stringify(this.postLikeData));
             }
+          }
+          if (d && d.comments) {
+            this.commentsData = JSON.parse(d.comments);
+            d['commentsData'] = this.commentsData;
           }
         }
         this.isuserData = true;
@@ -132,6 +135,10 @@ export class WelcomePage implements OnInit {
       });
     });
     return p;
+  }
+
+  mediaUrl(mediaFileNameOrUrl: string) {
+    return appGlobals.utils.mediaUrl(mediaFileNameOrUrl);
   }
 
   logout() {
@@ -248,7 +255,6 @@ export class WelcomePage implements OnInit {
   showLikes() {
     this.isshowComments = false;
     this.isShowLikes = !this.isShowLikes;
-
   }
 
   showComments() {
@@ -257,17 +263,28 @@ export class WelcomePage implements OnInit {
   }
 
   addLike(id) {
-    const body = {
-      postid: id,
-    };
+    const body = id;
     const p = new Promise((resolve, reject) => {
-      this.http.post(`${createEndpoint('api/like')}`, body).subscribe((res: any) => {
+      this.http.post(`${createEndpoint('api/like/' + body)}`, body).subscribe((res: any) => {
         resolve(res);
         this.getUserDetails();
       }, (err) => {
         reject(err);
       });
     });
+  }
+
+  async showLikess(ev: any, user) {
+    user.like = true;
+    // this.isshowComments = false;
+    // this.isShowLikes = !this.isShowLikes;
+    const pop = await this.popover.create({
+      component: PopoverContentPageComponent,
+      cssClass: 'my-custom-class',
+      event: ev,
+    });
+    return await pop.present();
+
   }
 
   ngAfterViewInit() {

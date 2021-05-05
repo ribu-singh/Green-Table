@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { WelcomePage } from './welcome.page';
 import { RouterModule, Routes } from '@angular/router';
+import { PopoverContentModule } from '../components/popover-content-page/popover-content.module';
 
 const routes: Routes = [
   {
@@ -17,6 +18,7 @@ const routes: Routes = [
   imports: [
     CommonModule,
     FormsModule,
+    PopoverContentModule,
     IonicModule,
     RouterModule.forChild(routes)
   ],

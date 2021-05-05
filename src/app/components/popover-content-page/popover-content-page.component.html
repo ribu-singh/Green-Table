@@ -1,0 +1,11 @@
+
+<div>
+  <div *ngFor="let lik of data" class="like-box">
+    <div style="display: flex;">
+      <img class="like-img" src="{{lik.profileMedia}}" *ngIf="lik && lik.profileMedia">
+      <p *ngIf="lik && lik.profileName" class="like-text">{{lik.profileName}} Liked this Post</p>
+    </div>
+  </div>
+</div>
+
+<!-- <h2>{{postLikeData}}</h2> -->

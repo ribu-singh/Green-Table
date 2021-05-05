@@ -194,7 +194,7 @@ export class PicturePage implements OnInit {
 
   submit() {
     console.log(this.myForm.value);
-    this.http.post('http://localhost:8001/upload.php', this.myForm.value)
+    this.http.post('http://localhost:5001/api/home', this.myForm.value)
       .subscribe(res => {
         console.log(res);
         alert('Uploaded Successfully.');

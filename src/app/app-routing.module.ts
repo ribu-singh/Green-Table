@@ -24,17 +24,15 @@ const routes: Routes = [
     path: 'home',
     loadChildren: () => import('./home/home.module').then(m => m.HomePageModule)
   },
+  // {
+  //   path: 'crop',
+  //   loadChildren: () => import('./crop/crop.module').then(m => m.CropPageModule)
+  // },
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: '/login',
     pathMatch: 'full'
-  },  {
-    path: 'crop',
-    loadChildren: () => import('./crop/crop.module').then( m => m.CropPageModule)
   },
-
-
-
 ];
 
 @NgModule({
