@@ -10,6 +10,9 @@
 
 <ion-header translucent>
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-icon name="search" class="search-icon"></ion-icon>
+    </ion-buttons>
     <ion-title>People who reacted</ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="dismiss()">Close</ion-button>
@@ -20,7 +23,7 @@
   <ion-list>
     <ion-item>
       <ion-avatar slot="start">
-        <ion-icon name="thumbs-up" class="thumb-icon"></ion-icon>
+        <ion-icon name="heart-sharp" color="danger" class="thumb-icon"></ion-icon>
       </ion-avatar>
       <ion-label class="like-div">
         <div class="likes-box">
