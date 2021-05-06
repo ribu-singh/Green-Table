@@ -12,6 +12,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { PopoverContentPageComponent } from '../components/popover-content-page/popover-content-page.component';
 // import * as EventEmitter from 'node:events';
 import * as appGlobals from '../app.globals';
+import { CalculateTimeService } from '../services/calculate-time.service';
 
 @Component({
   selector: 'app-welcome',
@@ -58,6 +59,7 @@ export class WelcomePage implements OnInit {
     public loadingController: LoadingController,
     private fireAuth: AngularFireAuth,
     private camera: Camera,
+    public calculateTime: CalculateTimeService,
     private http: HttpClient,
     public modalController: ModalController,
     private actionSheetCtrl: ActionSheetController,
@@ -111,6 +113,8 @@ export class WelcomePage implements OnInit {
       this.http.get(sendurl).subscribe((done) => {
         resolve(done);
         for (let i = 0, d; d = done[i]; i++) {
+          const date = this.calculateTime.convertTime(d.updatedAt);
+          d['UpdatedTime'] = date + ' ago';
           d['isSelfLike'] = false;
           d['like'] = false;
           if (d && d.likes === "[]") {
@@ -126,7 +130,6 @@ export class WelcomePage implements OnInit {
               }
               d['likesData'] = lk;
               this.postLikeData = lk;
-              // localStorage.setItem(appGlobals.localStorageKeys.likeData, JSON.stringify(this.postLikeData));
             }
           }
           if (d && d.comments) {

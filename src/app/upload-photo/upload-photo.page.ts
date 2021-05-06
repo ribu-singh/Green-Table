@@ -60,6 +60,12 @@ export class PicturePage implements OnInit {
     this.userImg = 'assets/imgs/logo.png';
   }
 
+  ngOnInit() {
+    this.userDetails = localStorage.getItem('userDetails');
+    this.userDetails = this.userDetails ? JSON.parse(this.userDetails) : undefined;
+    this.photos = [];
+  }
+
   imageCropped(event: ImageCroppedEvent) {
     this.croppedImage = event.base64;
 
@@ -76,11 +82,7 @@ export class PicturePage implements OnInit {
 
   }
 
-  ngOnInit() {
-    this.userDetails = localStorage.getItem('userDetails');
-    this.userDetails = this.userDetails ? JSON.parse(this.userDetails) : undefined;
-    this.photos = [];
-  }
+
 
   captureImage() {
     // this.convertFileToDataURLviaFileReader(`assets/images/plants.jpg`).subscribe(
@@ -253,7 +255,7 @@ export class PicturePage implements OnInit {
 
   }
 
-  
+
 
   async uploadFile() {
     const loading = await this.loadingController.create({
@@ -264,19 +266,19 @@ export class PicturePage implements OnInit {
     this.isuploading = true;
     // const body = {"posttext" : "hello"}
     const base = this.myImage;
-      const blob = this.convertBase64ToBlob(base);
-      const formData = new FormData();
-      formData.append('file', blob);
-      // formData.append("jsonData",caption);
-      const body = 'hi';
-      const p = new Promise((resolve, reject) => {
-        this.http.post(`${createEndpoint('api/home')}`, body).subscribe((res: any) => {
-          resolve(res);
-          
-        }, (err) => {
-          reject(err);
-        });
+    const blob = this.convertBase64ToBlob(base);
+    const formData = new FormData();
+    formData.append('file', blob);
+    // formData.append("jsonData",caption);
+    const body = 'hi';
+    const p = new Promise((resolve, reject) => {
+      this.http.post(`${createEndpoint('api/home')}`, body).subscribe((res: any) => {
+        resolve(res);
+
+      }, (err) => {
+        reject(err);
       });
+    });
     return p;
 
   }

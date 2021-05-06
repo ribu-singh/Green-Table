@@ -43,33 +43,36 @@
           <ion-avatar slot="start" class="images">
             <img *ngIf="user && !user.profilemedia" src=".././../assets/images/preeti.jpg">
             <img *ngIf="user && user.profilemedia" src="{{user.profilemedia}}">
-            <div>
+            <div *ngIf="user && user.profilename">
               <p class="crdname"><b>{{user.profilename}}</b></p>
+            </div>
+            <div *ngIf="user && !user.profilename">
+              <p class="crdname"><b>No Name</b></p>
             </div>
           </ion-avatar>
         </div>
-        <div>
+        <div *ngIf="user && user.posttext">
           <p class="strong"><b>{{user.posttext}}</b></p>
         </div>
-      </ion-col>
-      <!-- <ion-col>
-        <div>
-          <p class="crdname"><b>{{user.profilename}}</b></p>
+        <div *ngIf="user && !user.posttext">
+          <p class="strong"><b>No caption</b></p>
         </div>
-
-      </ion-col> -->
+      </ion-col>
+      <ion-col size="3">
+        <ion-label *ngIf="user && user.UpdatedTime">
+          <p class="update-time">{{user.UpdatedTime}}</p>
+        </ion-label>
+      </ion-col>
       <div>
         <img class="Ag-img" src=".././../assets/images/plants.jpg" *ngIf="user && !user.url">
         <img class="Ag-img" [src]="mediaUrl(user.url)" *ngIf="user && user.url">
       </div>
-      <!-- <app-popover-content-page *ngIf="user.like" [postLikeData]="user.likesData"></app-popover-content-page> -->
       <div class="like-div">
         <ion-icon name="heart-sharp" color="danger" class="heart" *ngIf="user && user.isSelfLike"
           (click)="addLike(user.id)">
         </ion-icon>
         <ion-icon name="heart-outline" class="heart" *ngIf="!user.isSelfLike" (click)="addLike(user.id)"></ion-icon>
-        <!-- <ion-label>13k</ion-label> -->
-        <ion-label *ngIf="user.likesData" class="heart-count" >
+        <ion-label *ngIf="user.likesData" class="heart-count">
           {{user.likesData.length}}
         </ion-label>
         <ion-label *ngIf="!user.likesData" class="heart-count"> 0</ion-label>
@@ -81,6 +84,7 @@
         <ion-icon name="arrow-redo-sharp" class="share"></ion-icon>
         <ion-label *ngIf="user.share">{{user.share}}</ion-label>
         <ion-label *ngIf="!user.share">32</ion-label>
+        <!-- <ion-label *ngIf="user && user.UpdatedTime">{{user.UpdatedTime}}</ion-label> -->
       </div>
       <div class="like-div">
         <div *ngIf="!isshowComments && user.singleData">
@@ -94,10 +98,6 @@
             </div>
           </div>
         </div>
-        <!-- <div *ngIf="isShowLikes && !user.likesData ">
-          <hr>
-          <h2>No likes</h2>
-        </div> -->
       </div>
       <div class="like-div">
         <div *ngIf="isshowComments && user.commentsData">
