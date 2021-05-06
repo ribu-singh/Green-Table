@@ -1,11 +1,53 @@
-
-<div>
-  <div *ngFor="let lik of data" class="like-box">
-    <div style="display: flex;">
-      <img class="like-img" src="{{lik.profileMedia}}" *ngIf="lik && lik.profileMedia">
-      <p *ngIf="lik && lik.profileName" class="like-text">{{lik.profileName}} Liked this Post</p>
+<!-- <ion-header>
+  <ion-toolbar>
+    <div>
+      <ion-icon name="arrow-back-outline" class="back-icon" (click)="dismiss()"></ion-icon>
+      <ion-icon name="ellipsis-vertical" class="menu-icon"></ion-icon>
     </div>
-  </div>
-</div>
+  </ion-toolbar>
+</ion-header> -->
 
-<!-- <h2>{{postLikeData}}</h2> -->
+
+<ion-header translucent>
+  <ion-toolbar>
+    <ion-title>People who reacted</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismiss()">Close</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content fullscreen>
+  <ion-list>
+    <ion-item>
+      <ion-avatar slot="start">
+        <ion-icon name="thumbs-up" class="thumb-icon"></ion-icon>
+      </ion-avatar>
+      <ion-label class="like-div">
+        <div class="likes-box">
+          <h2>{{likeData.length}} Likes</h2>
+        </div>
+      </ion-label>
+    </ion-item>
+
+  </ion-list>
+  <ion-list>
+    <!-- <ion-item>
+      <ion-avatar slot="start">
+        <ion-icon name="person-circle-outline"></ion-icon>
+      </ion-avatar>
+      <ion-label>
+        <h2>Gollum</h2>
+        <p>Sneaky little hobbitses!</p>
+      </ion-label>
+    </ion-item> -->
+    <ion-item *ngFor="let user of likeData">
+      <ion-avatar slot="start">
+        <ion-icon name="person-circle-outline" *ngIf=" user && !user.profileMedia"></ion-icon>
+        <img *ngIf=" user && user.profileMedia" src="{{user.profileMedia}}">
+      </ion-avatar>
+      <ion-label>
+        <h3 *ngIf=" user && user.profileName">{{user.profileName}} Liked this Post</h3>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

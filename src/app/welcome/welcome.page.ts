@@ -4,7 +4,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { GooglePlus } from '@ionic-native/google-plus/ngx';
-import { ActionSheetController, LoadingController, Platform, PopoverController } from '@ionic/angular';
+import { ActionSheetController, LoadingController, ModalController, Platform, PopoverController } from '@ionic/angular';
 import { NavController } from '@ionic/angular';
 import { createEndpoint } from '../helpers/helper';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
@@ -28,6 +28,7 @@ export class WelcomePage implements OnInit {
   public likesData: any;
   public postLikeData: any;
   public userDetails: any;
+  public singleLike = [];
   public id: number;
   public isuserData = false;
   public imgUrl = appGlobals.imgUrl;
@@ -58,7 +59,7 @@ export class WelcomePage implements OnInit {
     private fireAuth: AngularFireAuth,
     private camera: Camera,
     private http: HttpClient,
-
+    public modalController: ModalController,
     private actionSheetCtrl: ActionSheetController,
     private platform: Platform,
     private router: Router,
@@ -98,6 +99,11 @@ export class WelcomePage implements OnInit {
 
 
   }
+
+  /**
+   * @description to get userDetails
+   * @returns 
+   */
   getUserDetails() {
     this.isuserData = false;
     const p = new Promise((resolve, reject) => {
@@ -111,15 +117,16 @@ export class WelcomePage implements OnInit {
           } else {
             let lk = JSON.parse(d.likes);
             if (lk && lk.length > 0) {
+              this.singleLike = lk;
+              d['singleData'] = this.singleLike[0];
               for (let j = 0, l; l = lk[j]; j++) {
                 if (l && l.profileId && l.profileId === this.id) {
                   d.isSelfLike = true;
-                  // l.profileMedia
                 }
               }
               d['likesData'] = lk;
               this.postLikeData = lk;
-              localStorage.setItem(appGlobals.localStorageKeys.likeData, JSON.stringify(this.postLikeData));
+              // localStorage.setItem(appGlobals.localStorageKeys.likeData, JSON.stringify(this.postLikeData));
             }
           }
           if (d && d.comments) {
@@ -137,10 +144,18 @@ export class WelcomePage implements OnInit {
     return p;
   }
 
+  /**
+   * @description to get media url
+   * @param mediaFileNameOrUrl 
+   * @returns 
+   */
   mediaUrl(mediaFileNameOrUrl: string) {
     return appGlobals.utils.mediaUrl(mediaFileNameOrUrl);
   }
 
+  /**
+   * @description to logout from the app
+   */
   logout() {
     this.fireAuth.signOut().then(() => {
       this.isGoogleLogin = false;
@@ -274,17 +289,15 @@ export class WelcomePage implements OnInit {
     });
   }
 
-  async showLikess(ev: any, user) {
-    user.like = true;
-    // this.isshowComments = false;
-    // this.isShowLikes = !this.isShowLikes;
-    const pop = await this.popover.create({
+  async presentModal(data) {
+    const modal = await this.modalController.create({
       component: PopoverContentPageComponent,
       cssClass: 'my-custom-class',
-      event: ev,
+      componentProps: {
+        'likeData': data,
+      }
     });
-    return await pop.present();
-
+    return await modal.present();
   }
 
   ngAfterViewInit() {

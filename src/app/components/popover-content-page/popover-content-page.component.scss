@@ -1,3 +1,7 @@
+:root {
+    --ion-safe-area-top: 20px;
+    --ion-safe-area-bottom: 22px;
+}
 .like-box {
     border: 1px solid aliceblue;
     border-radius: 6px;
@@ -13,4 +17,38 @@
     margin: 2%;
     padding: 0px 0px 0px 5px;
     font-size: 15px;
+}
+.back-icon {
+    zoom: 2;
+}
+.like-div{
+    margin: 0 !important;
+
+}::slotted {
+    margin: 0;
+}
+
+    
+.menu-icon {
+    zoom: 2;
+    float: right;
+}
+.likes-box {
+    border-bottom: 2px solid rgb(75, 111, 255);
+    width: 25%;
+    padding: 10px;
+}
+/* DOES NOT WORK - not specific enough */
+.modal-wrapper {
+    background: #222;
+}
+
+/* Works - pass "my-custom-class" in cssClass to increase specificity */
+.my-custom-class .modal-wrapper {
+    background: #222;
+}
+.thumb-icon {
+    color: blue;
+    padding: 25%;
+    zoom: 1.3;
 }
