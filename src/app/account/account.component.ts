@@ -12,21 +12,14 @@ import { createEndpoint } from '../helpers/helper';
 export class AccountComponent implements OnInit {
 
   public coinData: any;
+  public showData: boolean = false;
   public userDetails: any;
-  public setDob:any;
+  public coinscount: number;
   public id: number;
   public userInfo: any;
 
-  // public email: any;
-  // public profilePic: any;
 
   constructor(private navControl: NavController, private http: HttpClient,) {
-    // this.coinData = [{ time: '18-Feb 5:15 PM', coinCredited: '20' },
-    // { time: '14-Feb 5:15 PM', coinCredited: '54' },
-    // { time: '18-Feb 5:45 AM', coinCredited: '40' },
-    // { time: '19-Feb 4:15 PM', coinCredited: '55' },
-    // { time: '20-Feb 8:15 PM', coinCredited: '28' },
-    // { time: '25-Feb 8:15 AM', coinCredited: '5' },]
   }
 
   ngOnInit() {
@@ -34,11 +27,8 @@ export class AccountComponent implements OnInit {
     this.userDetails = this.userDetails ? JSON.parse(this.userDetails) : undefined;
     this.id = this.userDetails.userDetails.user.id;
     this.getDetails();
-    this.getCoins();
 
   }
-
-
 
   getDetails() {
     const p = new Promise((resolve, reject) => {
@@ -49,18 +39,29 @@ export class AccountComponent implements OnInit {
       }, (err) => {
         reject(err);
       });
+      this.getCoins();
     });
     return p;
   }
 
   getCoins() {
+    this.showData = false;
     const p = new Promise((resolve, reject) => {
       const sendurl = (`${createEndpoint('api/greencoinContoller')}`);
       this.http.get(sendurl).subscribe((done) => {
         resolve(done);
         this.coinData = done;
+        for (let i = 0, d, b = 0; d = done[i]; i++) {
+          var a = d.coins
+          b = a + b;
+          if (this.coinData.length === i + 1) {
+            this.coinData['coinscount'] = b;
+          }
+        }
+        this.showData = true;
       }, (err) => {
         reject(err);
+        this.showData = false;
       });
     });
     return p;

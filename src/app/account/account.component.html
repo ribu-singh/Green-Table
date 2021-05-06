@@ -8,25 +8,28 @@
 </ion-header>
 <ion-content>
   <ion-grid [fixed]="true">
-    <ion-row *ngIf="userDetails">
+    <ion-row *ngIf="userDetails && showData">
       <ion-col size="3">
-        <!-- <div class="pro-circle">
-          <ion-icon name="person-circle-outline" class="user-img"></ion-icon>
-        </div> -->
-        <!-- <ion-avatar class="profile"> -->
-        <!-- <ion-icon name="person-circle-outline" class="user-img"></ion-icon> -->
         <ion-img class="pro-circle" *ngIf="userInfo && userInfo.profilemedia" src="{{userInfo.profilemedia}}"></ion-img>
-        <!-- </ion-avatar> -->
       </ion-col>
       <ion-col size="9">
         <div>
           <p *ngIf="userInfo && userInfo.firstname" class="txt"><b>{{userInfo.firstname}}</b></p>
           <!-- <p class="txt">{{userInfo.email}}</p> -->
           <div class="head-txt">
-            <img class="grn-coins" src="../../assets/images/green-coin.png">
-            <p class="txt-cn">50 Credits earned</p>
+            <img class="grn-coins" *ngIf="coinData && coinData.coinscount" src="../../assets/images/green-coin.png">
+            <p class="txt-cn" *ngIf="coinData && coinData.coinscount">{{coinData.coinscount}} Coins Earned</p>
           </div>
         </div>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="!userInfo && !showData">
+      <ion-col size="3">
+        <ion-skeleton-text animated style="width: 70px; height: 70px; border-radius: 35px;"></ion-skeleton-text>
+      </ion-col>
+      <ion-col size="9" style="margin-top: 5%;">
+        <ion-skeleton-text animated style="width: 70%;"></ion-skeleton-text>
+        <ion-skeleton-text animated style="width: 70%;  margin: 7% 0% 7% 0%;"></ion-skeleton-text>
       </ion-col>
     </ion-row>
     <div class="screen">
