@@ -18,12 +18,14 @@ import { Camera } from '@ionic-native/camera/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { PopoverContentModule } from './components/popover-content-page/popover-content.module';
+import { PicturePageModule } from './upload-photo/upload-photo.module';
+
 
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
 
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule, accountPageModule, loginPageModule, PopoverContentModule, WelcomePageModule, AngularFireModule.initializeApp(environment.firebase),
+  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule, accountPageModule, loginPageModule,PicturePageModule, PopoverContentModule, WelcomePageModule, AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule],
   providers: [{
     provide: RouteReuseStrategy, useClass: IonicRouteStrategy,

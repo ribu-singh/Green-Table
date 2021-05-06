@@ -125,12 +125,15 @@ export class PicturePage implements OnInit {
 
   clear() {
     this.angularCropper.imageBase64 = null;
-    this.myImage = null;
+    // this.myImage = null;
     this.croppedImage = null;
   }
 
   save() {
     this.angularCropper.crop();
+    // this.myImage = true;
+    // this.croppedImage = false;
+    // console.dir(this.croppedImage);
   }
 
   move(x, y) {
@@ -201,41 +204,42 @@ export class PicturePage implements OnInit {
       })
   }
 
-  async loadImageActionSheet1() {
-    const actionSheet = await this.actionSheetCtrl.create({
-      header: 'Select Image Source',
-      buttons: [{
-        text: 'From Device',
-        icon: 'laptop-outline',
-        handler: () => {
-          this.userInputElement.click();
-        }
-      }, {
-        text: 'From Camera',
-        icon: 'camera',
-        handler: () => {
-          this.openCamera();
-        }
-      }, {
-        text: 'Cancel',
-        icon: 'close',
-        role: 'cancel'
-      }]
-    });
+  // async loadImageActionSheet1() {
+  //   const actionSheet = await this.actionSheetCtrl.create({
+  //     header: 'Select Image Source',
+  //     buttons: [{
+  //       text: 'From Device',
+  //       icon: 'laptop-outline',
+  //       handler: () => {
+  //         this.userInputElement.click();
+  //       }
+  //     }, {
+  //       text: 'From Camera',
+  //       icon: 'camera',
+  //       handler: () => {
+  //         this.openCamera();
+  //       }
+  //     }, {
+  //       text: 'Cancel',
+  //       icon: 'close',
+  //       role: 'cancel'
+  //     }]
+  //   });
 
-    await actionSheet.present();
-  };
+  //   await actionSheet.present();
+  // };
 
   readSelectedFile(event) {
     let self = this;
     const files = event.target.files;
     var filesAmount = event.target.files.length;
+    // var caption = event.target.caption;
     for (let i = 0; i < filesAmount; i++) {
       var reader = new FileReader();
       reader.onload = (event: any) => {
         console.log(event.target.result);
         this.images.push(event.target.result);
-        self.uploadFile(files[0], reader.result);
+        // self.uploadFile(files[0], reader.result);
         this.myForm.patchValue({
           fileSource: this.images
         });
@@ -249,36 +253,44 @@ export class PicturePage implements OnInit {
 
   }
 
-  async uploadFile(f, base) {
+  
+
+  async uploadFile() {
     const loading = await this.loadingController.create({
       cssClass: 'my-custom-class',
       message: ''
     });
     await loading.present();
     this.isuploading = true;
-    const p = new Promise((resolve, reject) => {
+    // const body = {"posttext" : "hello"}
+    const base = this.myImage;
       const blob = this.convertBase64ToBlob(base);
       const formData = new FormData();
-      formData.append('file', blob, f.name);
-      this.http.post(`${createEndpoint('api/home')}`, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
-      }).subscribe((res: any) => {
-
-        resolve(res);
-        this.isuploading = false;
-        loading.dismiss();
-
-        console.log(res);
-      }, (err) => {
-        reject(err);
-        this.isuploading = false;
-        loading.dismiss();
+      formData.append('file', blob);
+      // formData.append("jsonData",caption);
+      const body = 'hi';
+      const p = new Promise((resolve, reject) => {
+        this.http.post(`${createEndpoint('api/home')}`, body).subscribe((res: any) => {
+          resolve(res);
+          
+        }, (err) => {
+          reject(err);
+        });
       });
-    });
     return p;
 
+  }
+
+  addLike() {
+    const body = 65;
+    const p = new Promise((resolve, reject) => {
+      this.http.post(`${createEndpoint('api/like/' + body)}`, body).subscribe((res: any) => {
+        resolve(res);
+        // this.getUserDetails();
+      }, (err) => {
+        reject(err);
+      });
+    });
   }
 
   getInfoFromBase64(base64: string) {
@@ -315,7 +327,7 @@ export class PicturePage implements OnInit {
     return new Blob(byteArrays, { type: info.mime });
   }
 
-  ngAfterViewInit() {
-    this.userInputElement = this.userInputViewChild.nativeElement;
-  };
+  // ngAfterViewInit() {
+  //   this.userInputElement = this.userInputViewChild.nativeElement;
+  // };
 }
