@@ -36,13 +36,13 @@ export class PicturePage implements OnInit {
     file: new FormControl('', [Validators.required]),
     fileSource: new FormControl('', [Validators.required])
   });
-  cameraOptions: CameraOptions = {
-    quality: 100,
-    destinationType: this.camera.DestinationType.DATA_URL,
-    encodingType: this.camera.EncodingType.JPEG,
-    mediaType: this.camera.MediaType.PICTURE,
-    allowEdit: true
-  }
+  // cameraOptions: CameraOptions = {
+  //   quality: 100,
+  //   destinationType: this.camera.DestinationType.DATA_URL,
+  //   encodingType: this.camera.EncodingType.JPEG,
+  //   mediaType: this.camera.MediaType.PICTURE,
+  //   allowEdit: true
+  // }
 
   constructor(private http: HttpClient, private statusBar: StatusBar,
     private navControl: NavController,
@@ -71,16 +71,16 @@ export class PicturePage implements OnInit {
 
   }
 
-  openCamera() {
-    this.camera.getPicture(this.cameraOptions).then((imgData) => {
-      console.log('image data =>  ', imgData);
-      this.base64Img = 'data:image/jpeg;base64,' + imgData;
-      this.userImg = this.base64Img;
-    }, (err) => {
-      console.log(err);
-    })
+  // openCamera() {
+  //   this.camera.getPicture(this.cameraOptions).then((imgData) => {
+  //     console.log('image data =>  ', imgData);
+  //     this.base64Img = 'data:image/jpeg;base64,' + imgData;
+  //     this.userImg = this.base64Img;
+  //   }, (err) => {
+  //     console.log(err);
+  //   })
 
-  }
+  // }
 
 
 
@@ -91,15 +91,15 @@ export class PicturePage implements OnInit {
     //   }
     // );
 
-    const option: CameraOptions = {
+    const options: CameraOptions = {
       quality: 55,
-      destinationType: this.camera.DestinationType.DATA_URL,
+      destinationType: this.camera.DestinationType.FILE_URI,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
       sourceType: this.camera.PictureSourceType.CAMERA
     }
 
-    this.camera.getPicture(option).then((imageData) => {
+    this.camera.getPicture(options).then((imageData) => {
       this.myImage = 'data:image/jpeg;base64,' + imageData;
       this.photos.push(this.croppedImage);
       this.photos.reverse();
@@ -269,31 +269,34 @@ export class PicturePage implements OnInit {
     const blob = this.convertBase64ToBlob(base);
     const formData = new FormData();
     formData.append('file', blob);
+    // formData.append('posttext','hi')
     // formData.append("jsonData",caption);
     const body = 'hi';
     const p = new Promise((resolve, reject) => {
-      this.http.post(`${createEndpoint('api/home')}`, body).subscribe((res: any) => {
+      this.http.post(`${createEndpoint('api/home')}`, formData).subscribe((res: any) => {
         resolve(res);
+        loading.dismiss();
 
       }, (err) => {
         reject(err);
+        loading.dismiss();
       });
     });
     return p;
 
   }
 
-  addLike() {
-    const body = 65;
-    const p = new Promise((resolve, reject) => {
-      this.http.post(`${createEndpoint('api/like/' + body)}`, body).subscribe((res: any) => {
-        resolve(res);
-        // this.getUserDetails();
-      }, (err) => {
-        reject(err);
-      });
-    });
-  }
+  // addLike() {
+  //   const body = 65;
+  //   const p = new Promise((resolve, reject) => {
+  //     this.http.post(`${createEndpoint('api/like/' + body)}`, body).subscribe((res: any) => {
+  //       resolve(res);
+  //       // this.getUserDetails();
+  //     }, (err) => {
+  //       reject(err);
+  //     });
+  //   });
+  // }
 
   getInfoFromBase64(base64: string) {
     const meta = base64.split(',')[0];
