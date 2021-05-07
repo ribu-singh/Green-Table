@@ -287,32 +287,7 @@ export class WelcomePage implements OnInit {
     const p = new Promise((resolve, reject) => {
       this.http.post(`${createEndpoint('api/like/' + body)}`, body).subscribe((res: any) => {
         resolve(res);
-        for (let i = 0, d; d = res[i]; i++) {
-          const date = this.calculateTime.convertTime(d.updatedAt);
-          d['UpdatedTime'] = date + ' ago';
-          d['isSelfLike'] = false;
-          d['like'] = false;
-          if (d && d.likes === "[]") {
-          } else {
-            let lk = JSON.parse(d.likes);
-            if (lk && lk.length > 0) {
-              this.singleLike = lk;
-              d['singleData'] = this.singleLike[0];
-              for (let j = 0, l; l = lk[j]; j++) {
-                if (l && l.profileId && l.profileId === this.id) {
-                  d.isSelfLike = true;
-                }
-              }
-              d['likesData'] = lk;
-              this.postLikeData = lk;
-            }
-          }
-          if (d && d.comments) {
-            this.commentsData = JSON.parse(d.comments);
-            d['commentsData'] = this.commentsData;
-          }
-        }
-        this.userdata = res;
+        this.getUserDetails();
       }, (err) => {
         reject(err);
       });
