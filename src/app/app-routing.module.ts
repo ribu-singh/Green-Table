@@ -24,7 +24,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: '/upload',
+    redirectTo: '/login',
     pathMatch: 'full'
   },
 

@@ -31,13 +31,12 @@
     margin: 2%;
 }
 .coin-blk {
-    width: 145%;
+    width: 159%;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.13);
     text-align: center;
     margin-left: -3%;
     padding: 3%;
 }
-
 .qrbtn {
     margin: 3%;
     padding-block-end: 0% !important;
@@ -86,8 +85,33 @@
     // padding: 4%;
 }
 .crdname {
-    margin-top: -38px;
-    margin-right: -160px;
+    margin-top: -33px;
+    margin-right: 35%;
+}
+.coin-time {
+    margin-top: 4px;
+    font-size: 12px;
+    opacity: 0.7;
+    font-weight: 600;
+}
+.comment-div {
+    padding: 10px;
+    background: rgba(236, 240, 255, 0.7);
+    border-radius: 10px;
+}
+.comminput {
+    background: rgba(246, 247, 250, 1);
+    border-radius: 25px;
+    // height: 7%;
+    margin: 5% 0 5% 0;
+    width: 100%;
+}
+.comminput-2 {
+    width: 76%;
+    padding: 2%;
+    border: none;
+    margin: 1.5% 1% 1% 2%;
+    outline: none;
 }
 
 // .crdname{
@@ -149,7 +173,7 @@
     padding: 3px;
 }
 .update-time {
-    margin-top: 25%;
+    margin-top: 19%;
     font-size: 15px;
 }
 .like-div {

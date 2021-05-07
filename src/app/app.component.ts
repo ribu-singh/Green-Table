@@ -19,7 +19,7 @@ export class AppComponent {
     if (userDetails) {
     this.router.navigate(['welcome']);
     } else {
-    this.router.navigate(['/upload']);
+    this.router.navigate(['/login']);
     }
   }
 }

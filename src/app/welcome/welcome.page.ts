@@ -26,6 +26,8 @@ export class WelcomePage implements OnInit {
   public commentsData: any;
   public isuploading = false;
   public isSelfLike = false;
+  public isComment = false;
+  public enterComment: any;
   public likesData: any;
   public postLikeData: any;
   public userDetails: any;
@@ -285,12 +287,83 @@ export class WelcomePage implements OnInit {
     const p = new Promise((resolve, reject) => {
       this.http.post(`${createEndpoint('api/like/' + body)}`, body).subscribe((res: any) => {
         resolve(res);
-        this.getUserDetails();
+        for (let i = 0, d; d = res[i]; i++) {
+          const date = this.calculateTime.convertTime(d.updatedAt);
+          d['UpdatedTime'] = date + ' ago';
+          d['isSelfLike'] = false;
+          d['like'] = false;
+          if (d && d.likes === "[]") {
+          } else {
+            let lk = JSON.parse(d.likes);
+            if (lk && lk.length > 0) {
+              this.singleLike = lk;
+              d['singleData'] = this.singleLike[0];
+              for (let j = 0, l; l = lk[j]; j++) {
+                if (l && l.profileId && l.profileId === this.id) {
+                  d.isSelfLike = true;
+                }
+              }
+              d['likesData'] = lk;
+              this.postLikeData = lk;
+            }
+          }
+          if (d && d.comments) {
+            this.commentsData = JSON.parse(d.comments);
+            d['commentsData'] = this.commentsData;
+          }
+        }
+        this.userdata = res;
       }, (err) => {
         reject(err);
       });
     });
   }
+
+  sendComment(id) {
+    this.isComment = true;
+    const body = {
+      'commentText': this.enterComment
+    };
+    const p = new Promise((resolve, reject) => {
+      this.http.post(`${createEndpoint('api/comment/' + id)}`, body).subscribe((res: any) => {
+        resolve(res);
+        this.isComment = false;
+        // this.getUserDetails();
+        for (let i = 0, d; d = res[i]; i++) {
+          const date = this.calculateTime.convertTime(d.updatedAt);
+          d['UpdatedTime'] = date + ' ago';
+          d['isSelfLike'] = false;
+          d['like'] = false;
+          if (d && d.likes === "[]") {
+          } else {
+            let lk = JSON.parse(d.likes);
+            if (lk && lk.length > 0) {
+              this.singleLike = lk;
+              d['singleData'] = this.singleLike[0];
+              for (let j = 0, l; l = lk[j]; j++) {
+                if (l && l.profileId && l.profileId === this.id) {
+                  d.isSelfLike = true;
+                }
+              }
+              d['likesData'] = lk;
+              this.postLikeData = lk;
+            }
+          }
+          if (d && d.comments) {
+            this.commentsData = JSON.parse(d.comments);
+            d['commentsData'] = this.commentsData;
+          }
+        }
+        this.userdata = res;
+        this.enterComment = null;
+      }, (err) => {
+        reject(err);
+        this.enterComment = null;
+        this.isComment = false;
+      });
+    });
+  }
+
 
   async presentModal(data) {
     const modal = await this.modalController.create({
